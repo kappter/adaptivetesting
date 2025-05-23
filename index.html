@@ -42,14 +42,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adaptive Programming Skills Test</title>
+  <title>Adaptive Skills Test</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-    <h1 class="text-2xl font-bold mb-6 text-center">Adaptive Programming Skills Test</h1>
-    <div id="question-container" class="mb-6">
+    <h1 class="text-2xl font-bold mb-6 text-center">Adaptive Skills Test</h1>
+    <div class="mb-6">
+      <label for="test-type" class="block text-lg mb-2">Select Test:</label>
+      <select id="test-type" class="w-full p-2 border rounded">
+        <option value="programming">Programming Skills Test</option>
+        <option value="yearbook">Yearbook Skills Test</option>
+      </select>
+    </div>
+    <div id="question-container" class="mb-6 hidden">
       <p id="question-text" class="text-lg mb-4"></p>
       <div id="options" class="space-y-2"></div>
     </div>
@@ -60,7 +67,7 @@
       <p id="score"></p>
       <p id="recommendation"></p>
     </div>
-    <div id="loading" class="text-center">Loading questions...</div>
+    <div id="loading" class="text-center">Loading...</div>
   </div>
   <script src="script.js"></script>
 </body>

@@ -1,0 +1,11 @@
+id,question,option1,option2,option3,option4,correct,difficulty,topic
+1,What is the primary goal of a yearbook writer?,To design page layouts,To capture candid photos,To craft engaging stories and captions,To manage team deadlines,3,2,writing
+2,Which tool is best for creating vector graphics for yearbook design?,Adobe Photoshop,Adobe Illustrator,GIMP,Canva,2,3,graphics
+3,What makes a good yearbook photo?,Blurry focus,Underexposed lighting,Strong composition and lighting,Minimal subject detail,3,2,photography
+4,In yearbook layout, what does 'bleed' refer to?,Text alignment,Image extending beyond the page edge,Font size,Page numbering,2,3,design/layout
+5,What is the purpose of a sidebar in a yearbook?,Main feature story,Brief supplementary content,Photo collage,Advertising space,2,2,sidebar
+6,What is a key trait of a yearbook team leader?,Writing captions,Setting goals and motivating the team,Editing photos,Creating graphics,2,4,leadership
+7,How should a yearbook story engage readers?,Use technical jargon,Keep it concise and vivid,List facts only,Repeat content,2,3,writing
+8,Which file format is best for high-quality yearbook images?,JPEG,PNG,SVG,GIF,1,4,photography
+9,What is the role of white space in yearbook design?,Clutters the page,Guides the reader's eye,Reduces readability,Fills empty areas,2,4,design/layout
+10,How can a sidebar enhance a yearbook spread?,Repeats the main story,Provides quick facts or quotes,Lists all team members,Includes unrelated ads,2,3,sidebar

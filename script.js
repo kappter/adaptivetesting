@@ -2,19 +2,28 @@ let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let questionHistory = [];
+let testType = 'programming';
 const totalQuestions = 10;
 
-// Load CSV file
-fetch('questions.csv')
-  .then(response => response.text())
-  .then(data => {
-    questions = parseCSV(data);
-    startTest();
-  })
-  .catch(error => {
-    document.getElementById('loading').innerText = 'Error loading questions.';
-    console.error(error);
-  });
+// Load test based on selection
+function loadTest() {
+  const loadingDiv = document.getElementById('loading');
+  loadingDiv.classList.remove('hidden');
+  document.getElementById('question-container').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('next-btn').classList.add('hidden');
+  document.getElementById('feedback').classList.add('hidden');
+  fetch(`questions_${testType}.csv`)
+    .then(response => response.text())
+    .then(data => {
+      questions = parseCSV(data);
+      startTest();
+    })
+    .catch(error => {
+      loadingDiv.innerText = 'Error loading questions.';
+      console.error(error);
+    });
+}
 
 // Parse CSV
 function parseCSV(data) {
@@ -34,7 +43,11 @@ function parseCSV(data) {
 
 // Start test
 function startTest() {
+  currentQuestionIndex = 0;
+  score = 0;
+  questionHistory = [];
   document.getElementById('loading').classList.add('hidden');
+  document.getElementById('question-container').classList.remove('hidden');
   currentQuestionIndex = selectQuestion(3); // Start with medium difficulty
   displayQuestion();
 }
@@ -109,8 +122,37 @@ function showResults() {
   document.getElementById('next-btn').classList.add('hidden');
   document.getElementById('result').classList.remove('hidden');
   document.getElementById('score').innerText = `Your score: ${score} / ${totalQuestions * 50}`;
-  const recommendation = score >= totalQuestions * 40
-    ? 'You are well-prepared for the advanced programming class!'
-    : 'You may benefit from reviewing control structures, objects, and collections before the advanced class.';
+  let recommendation = '';
+  if (testType === 'programming') {
+    recommendation = score >= totalQuestions * 40
+      ? 'You are well-prepared for the advanced programming class!'
+      : 'You may benefit from reviewing control structures, objects, and collections before the advanced class.';
+  } else {
+    const topTopics = getTopTopics();
+    recommendation = score >= totalQuestions * 40
+      ? `You are well-suited for yearbook roles such as ${topTopics.join(' or ')}!`
+      : `You may benefit from practicing skills in ${topTopics.join(', ')} for yearbook roles.`;
+  }
   document.getElementById('recommendation').innerText = recommendation;
 }
+
+// Get top-performing topics for yearbook
+function getTopTopics() {
+  const topicScores = {};
+  questions.forEach(q => {
+    if (questionHistory.includes(q.id)) {
+      const userAnswer = questionHistory.indexOf(q.id) + 1;
+      topicScores[q.topic] = (topicScores[q.topic] || 0) + (q.correct === userAnswer ? q.difficulty * 10 : 0);
+    }
+  });
+  return Object.keys(topicScores).sort((a, b) => topicScores[b] - topicScores[a]).slice(0, 2);
+}
+
+// Handle test type change
+document.getElementById('test-type').addEventListener('change', (e) => {
+  testType = e.target.value;
+  loadTest();
+});
+
+// Initial load
+loadTest();
