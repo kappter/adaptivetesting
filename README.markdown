@@ -14,13 +14,13 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Scoring**: Awards points based on difficulty (10 points per level, max 50 per question).
 - **Feedback**: Immediate feedback and recommendations after 10 questions.
 - **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
-- **Fixed Footer**: Includes copyright notice, usage statement, and links to related resources.
+- **Fixed Footer**: Themed background (mustard yellow) with styled links (vibrant green, underlined on hover) for related resources.
 - **Custom Color Theme**: Uses hex colors A9DBB6 (light green), 6A4A62 (deep plum), 6D7D8F (steel blue), A38729 (mustard yellow), and 66EBAE (vibrant green).
 - **Centered Layout**: Fixed-width test area (672px) centered on the page for consistent presentation.
 - **GitHub Pages Compatible**: Fully client-side.
 
 ## File Structure
-- `index.html`: HTML with name input, test selection, start button, test interface, print button, and fixed footer.
+- `index.html`: HTML with name input, test selection, start button, test interface, print button, and themed fixed footer.
 - `styles.css`: Custom CSS for styling input, buttons, options, footer, and color theme.
 - `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, and report generation.
 - `questions_ib_computer_science.csv`: Questions for IB Computer Science Test (Java-focused).
@@ -60,7 +60,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
   - **IB/AP**: Readiness for SL/HL or AP exam (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
-- The fixed footer displays copyright and links at the bottom, styled with the custom theme.
+- The fixed footer displays a themed background (mustard yellow) with styled links (vibrant green, underlined on hover) at the bottom.
 - The test area is centered with a fixed width (672px) for a clean, focused interface.
 
 ## Customization
@@ -77,9 +77,9 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
-- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal with improved button text readability.
+- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal with a themed footer and styled links.
 - Footer links are placeholders (`#`); replace with actual URLs as needed.
-- Centered, fixed-width test area (672px) restores the preferred layout, aligning with your educational tool interests.
+- Centered, fixed-width test area (672px) and fixed footer align with your educational tool interests.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License

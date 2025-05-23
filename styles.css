@@ -1,6 +1,6 @@
 :root {
   --primary: #6A4A62; /* Deep plum for text, buttons */
-  --secondary: #6D7D8F; /* Steel blue for borders, footer */
+  --secondary: #6D7D8F; /* Steel blue for borders */
   --accent: #66EBAE; /* Vibrant green for links, correct feedback */
   --highlight: #A38729; /* Mustard yellow for hovers, incorrect feedback */
   --bg-light: #A9DBB6; /* Light green for body background */
@@ -9,6 +9,8 @@
   --highlight-light: #C9A32F; /* Lighter mustard yellow for hover */
   --disabled-bg: #B0B7C3; /* Lighter gray for disabled button */
   --text-light: #FFFFFF; /* White for button text */
+  --footer-bg: #A38729; /* Mustard yellow for footer background */
+  --footer-text: #A9DBB6; /* Light green for footer text */
 }
 
 body.body-bg {
@@ -79,17 +81,26 @@ select:focus, input[type="text"]:focus {
   cursor: pointer;
 }
 
-.footer-bg {
-  background-color: var(--secondary);
+.footer-themed {
+  background-color: var(--footer-bg);
   z-index: 10;
 }
 
-.text-accent {
-  color: var(--accent);
+.text-footer {
+  color: var(--footer-text);
 }
 
-.text-accent:hover {
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.footer-link:hover {
   color: var(--accent-light);
+  text-decoration: underline;
 }
 
 .space-y-2 > :not(:last-child) {
