@@ -83,18 +83,36 @@ function startTest() {
 
 // Select next question
 function selectQuestion(currentDifficulty) {
+  // Filter out questions already asked
   const unanswered = questions.filter(q => !questionHistory.includes(q.id));
   if (unanswered.length === 0) {
-    showResults(); // End early if no questions remain
+    console.warn('No unanswered questions remain. Ending test early.');
+    showResults();
     return -1;
   }
+  // Select questions matching current difficulty
   let candidates = unanswered.filter(q => q.difficulty === currentDifficulty);
   if (!candidates.length) {
+    // Fallback to questions within ±1 difficulty
     candidates = unanswered.filter(q => Math.abs(q.difficulty - currentDifficulty) <= 1);
   }
-  if (!candidates.length) candidates = unanswered;
+  if (!candidates.length) {
+    // Final fallback: any unanswered question
+    candidates = unanswered;
+  }
+  // Randomly select a candidate
   const randomIndex = Math.floor(Math.random() * candidates.length);
-  return questions.findIndex(q => q.id === candidates[randomIndex].id);
+  const selectedQuestion = candidates[randomIndex];
+  const selectedIndex = questions.findIndex(q => q.id === selectedQuestion.id);
+  
+  // Debug: Warn if selected question was already asked
+  if (questionHistory.includes(selectedQuestion.id)) {
+    console.warn(`Duplicate question detected: ID ${selectedQuestion.id}`);
+    showResults(); // End test to avoid infinite loop
+    return -1;
+  }
+  
+  return selectedIndex;
 }
 
 // Display question
