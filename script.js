@@ -161,7 +161,12 @@ function showResults() {
     recommendation = score >= totalQuestions * 40
       ? 'You are well-prepared for the AP Computer Science A exam!'
       : 'You may benefit from reviewing variables, control structures, and object-oriented programming for AP Computer Science A.';
-  } else if (testType === 'yearbook' || testType === 'photography' || testType === 'robotics') {
+  } else if (testType === 'yearbook') {
+    const topRole = getTopRole();
+    recommendation = score >= totalQuestions * 40
+      ? `You are well-suited for the ${topRole} role on the yearbook team!`
+      : `You may benefit from practicing skills in ${topRole} to excel on the yearbook team.`;
+  } else if (testType === 'photography' || testType === 'robotics') {
     const topTopics = getTopTopics();
     recommendation = score >= totalQuestions * 40
       ? `You are well-suited for ${testType} roles such as ${topTopics.join(' or ')}!`
@@ -170,13 +175,38 @@ function showResults() {
   document.getElementById('recommendation').innerText = recommendation;
 }
 
-// Get top-performing topics
+// Get top-performing role for yearbook
+function getTopRole() {
+  const roleScores = {};
+  const roleAttempts = {};
+  questionHistory.forEach((qId, index) => {
+    const q = questions.find(q => q.id === qId);
+    if (q) {
+      roleScores[q.topic] = (roleScores[q.topic] || 0) + (index + 1 <= questionHistory.length && q.correct === (index + 1) ? q.difficulty * 10 : 0);
+      roleAttempts[q.topic] = (roleAttempts[q.topic] || 0) + 1;
+    }
+  });
+  const roles = ['Design', 'Photography', 'Copywriting', 'Sidebar', 'Interviewing', 'Captioning', 'Leadership'];
+  let topRole = roles[0];
+  let maxScore = -1;
+  roles.forEach(role => {
+    const score = roleScores[role] || 0;
+    const attempts = roleAttempts[role] || 0;
+    if (attempts > 0 && (score > maxScore || (score === maxScore && roleAttempts[role] > roleAttempts[topRole]))) {
+      maxScore = score;
+      topRole = role;
+    }
+  });
+  return topRole;
+}
+
+// Get top-performing topics (for non-yearbook tests)
 function getTopTopics() {
   const topicScores = {};
-  questions.forEach(q => {
-    if (questionHistory.includes(q.id)) {
-      const userAnswer = questionHistory.indexOf(q.id) + 1;
-      topicScores[q.topic] = (topicScores[q.topic] || 0) + (q.correct === userAnswer ? q.difficulty * 10 : 0);
+  questionHistory.forEach((qId, index) => {
+    const q = questions.find(q => q.id === qId);
+    if (q) {
+      topicScores[q.topic] = (topicScores[q.topic] || 0) + (q.correct === (index + 1) ? q.difficulty * 10 : 0);
     }
   });
   return Object.keys(topicScores).sort((a, b) => topicScores[b] - topicScores[a]).slice(0, 2);
