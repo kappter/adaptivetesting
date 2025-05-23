@@ -16,6 +16,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
 - **Fixed Footer**: Includes copyright notice, usage statement, and links to related resources.
 - **Custom Color Theme**: Uses hex colors A9DBB6 (light green), 6A4A62 (deep plum), 6D7D8F (steel blue), A38729 (mustard yellow), and 66EBAE (vibrant green).
+- **Centered Layout**: Fixed-width test area (672px) centered on the page for consistent presentation.
 - **GitHub Pages Compatible**: Fully client-side.
 
 ## File Structure
@@ -60,6 +61,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
 - The fixed footer displays copyright and links at the bottom, styled with the custom theme.
+- The test area is centered with a fixed width (672px) for a clean, focused interface.
 
 ## Customization
 - **Add Questions**: Append rows to the relevant CSV with unique IDs.
@@ -75,8 +77,9 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
-- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal, aligning with your educational tool interests.
+- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal with improved button text readability.
 - Footer links are placeholders (`#`); replace with actual URLs as needed.
+- Centered, fixed-width test area (672px) restores the preferred layout, aligning with your educational tool interests.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License
