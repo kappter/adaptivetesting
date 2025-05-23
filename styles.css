@@ -1,0 +1,16 @@
+body {
+  font-family: Arial, sans-serif;
+}
+.option {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.option:hover {
+  background-color: #e5e7eb;
+}
+.correct {
+  background-color: #d1fae5;
+}
+.incorrect {
+  background-color: #fee2e2;
+}
