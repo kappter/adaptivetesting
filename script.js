@@ -166,33 +166,52 @@ function showResults() {
     recommendation = score >= totalQuestions * 40
       ? `You are well-suited for the ${topRole} role on the yearbook team!`
       : `You may benefit from practicing skills in ${topRole} to excel on the yearbook team.`;
-  } else if (testType === 'photography' || testType === 'robotics') {
+  } else if (testType === 'robotics') {
+    const topRole = getTopRole();
+    recommendation = score >= totalQuestions * 40
+      ? `You are well-suited for the ${topRole} role on the robotics team!`
+      : `You may benefit from practicing skills in ${topRole} to excel on the robotics team.`;
+  } else if (testType === 'photography') {
     const topTopics = getTopTopics();
     recommendation = score >= totalQuestions * 40
-      ? `You are well-suited for ${testType} roles such as ${topTopics.join(' or ')}!`
-      : `You may benefit from practicing skills in ${topTopics.join(', ')} for ${testType} roles.`;
+      ? `You are well-suited for photography roles such as ${topTopics.join(' or ')}!`
+      : `You may benefit from practicing skills in ${topTopics.join(', ')} for photography roles.`;
   }
   document.getElementById('recommendation').innerText = recommendation;
 }
 
-// Get top-performing role for yearbook
+// Get top-performing role for yearbook or robotics
 function getTopRole() {
   const roleScores = {};
   const roleAttempts = {};
+  const roleHighDifficulty = {};
   questionHistory.forEach((qId, index) => {
     const q = questions.find(q => q.id === qId);
     if (q) {
       roleScores[q.topic] = (roleScores[q.topic] || 0) + (index + 1 <= questionHistory.length && q.correct === (index + 1) ? q.difficulty * 10 : 0);
       roleAttempts[q.topic] = (roleAttempts[q.topic] || 0) + 1;
+      if (q.correct === (index + 1) && q.difficulty >= 4) {
+        roleHighDifficulty[q.topic] = (roleHighDifficulty[q.topic] || 0) + 1;
+      }
     }
   });
-  const roles = ['Design', 'Photography', 'Copywriting', 'Sidebar', 'Interviewing', 'Captioning', 'Leadership'];
+  const roles = testType === 'yearbook'
+    ? ['Design', 'Photography', 'Copywriting', 'Sidebar', 'Interviewing', 'Captioning', 'Leadership']
+    : ['Coder', 'Driver', 'Builder', 'Documenter', 'Leader'];
+  // Check for Leader eligibility (strong across multiple roles)
+  if (testType === 'robotics') {
+    const strongRoles = Object.keys(roleScores).filter(role => role !== 'Leader' && roleScores[role] >= 30);
+    if (strongRoles.length >= 3 && (!roleScores['Leader'] || roleScores['Leader'] < 40)) {
+      return 'Leader';
+    }
+  }
   let topRole = roles[0];
   let maxScore = -1;
   roles.forEach(role => {
     const score = roleScores[role] || 0;
     const attempts = roleAttempts[role] || 0;
-    if (attempts > 0 && (score > maxScore || (score === maxScore && roleAttempts[role] > roleAttempts[topRole]))) {
+    const highDifficulty = roleHighDifficulty[role] || 0;
+    if (attempts > 0 && (score > maxScore || (score === maxScore && highDifficulty > (roleHighDifficulty[topRole] || 0)))) {
       maxScore = score;
       topRole = role;
     }
@@ -200,7 +219,7 @@ function getTopRole() {
   return topRole;
 }
 
-// Get top-performing topics (for non-yearbook tests)
+// Get top-performing topics (for photography test)
 function getTopTopics() {
   const topicScores = {};
   questionHistory.forEach((qId, index) => {

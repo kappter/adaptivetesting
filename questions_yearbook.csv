@@ -1,11 +1,36 @@
 id,question,option1,option2,option3,option4,correct,difficulty,topic
-1,What is the primary goal of a yearbook writer?,To design page layouts,To capture candid photos,To craft engaging stories and captions,To manage team deadlines,3,2,writing
-2,Which tool is best for creating vector graphics for yearbook design?,Adobe Photoshop,Adobe Illustrator,GIMP,Canva,2,3,graphics
-3,What makes a good yearbook photo?,Blurry focus,Underexposed lighting,Strong composition and lighting,Minimal subject detail,3,2,photography
-4,In yearbook layout, what does 'bleed' refer to?,Text alignment,Image extending beyond the page edge,Font size,Page numbering,2,3,design/layout
-5,What is the purpose of a sidebar in a yearbook?,Main feature story,Brief supplementary content,Photo collage,Advertising space,2,2,sidebar
-6,What is a key trait of a yearbook team leader?,Writing captions,Setting goals and motivating the team,Editing photos,Creating graphics,2,4,leadership
-7,How should a yearbook story engage readers?,Use technical jargon,Keep it concise and vivid,List facts only,Repeat content,2,3,writing
-8,Which file format is best for high-quality yearbook images?,JPEG,PNG,SVG,GIF,1,4,photography
-9,What is the role of white space in yearbook design?,Clutters the page,Guides the reader's eye,Reduces readability,Fills empty areas,2,4,design/layout
-10,How can a sidebar enhance a yearbook spread?,Repeats the main story,Provides quick facts or quotes,Lists all team members,Includes unrelated ads,2,3,sidebar
+1,What is the primary goal of a yearbook layout design?,To fill all pages with photos,To create a visually appealing and cohesive narrative,To use as many fonts as possible,To minimize text content,2,3,Design
+2,Which software is commonly used for yearbook design?,Microsoft Word,Adobe InDesign,Google Docs,Notepad,2,2,Design
+3,What principle ensures a balanced yearbook page layout?,Random placement,Alignment,Overlapping elements,Ignoring margins,2,4,Design
+4,How should fonts be chosen for a yearbook?,Use one font for all text,Use multiple fonts for variety,Choose fonts that complement the theme,Use only bold fonts,3,3,Design
+5,What is the purpose of a grid system in yearbook design?,To limit creativity,To align elements consistently,To increase text size,To reduce photo usage,2,3,Design
+6,What is the ideal aperture setting for a yearbook portrait in bright light?,f/2.8,f/8,f/16,f/22,2,3,Photography
+7,Which camera mode allows manual control over shutter speed and aperture?,Auto,Program,Manual,Scene,3,2,Photography
+8,What is the rule of thirds in photography?,Placing subjects in the center,Dividing the frame into thirds for composition,Using only three colors,Shooting in three locations,2,3,Photography
+9,How can you reduce blur in action shots for yearbook?,Use a slow shutter speed,Use a fast shutter speed,Lower the ISO,Use a wide aperture,2,4,Photography
+10,What lighting is best for capturing candid yearbook moments?,Harsh direct sunlight,Soft natural light,Fluorescent light,Flash only,2,3,Photography
+11,What is the key to effective yearbook copywriting?,Using complex vocabulary,Writing concise and engaging stories,Including every detail,Filling pages with text,2,3,Copywriting
+12,Which tone is most appropriate for yearbook stories?,Formal academic,Casual and relatable,Technical jargon,Poetic and abstract,2,2,Copywriting
+13,How long should a typical yearbook story be?,One sentence,100–300 words,500–1000 words,Over 1000 words,2,3,Copywriting
+14,What should be avoided in yearbook copywriting?,Active voice,Clichés and overused phrases,Student quotes,Event descriptions,2,4,Copywriting
+15,What is the first step in editing a yearbook story?,Publishing immediately,Checking for grammar and clarity,Adding more adjectives,Changing the font,2,2,Copywriting
+16,What is a sidebar in a yearbook?,A main story,A photo gallery,A short complementary story or list,The table of contents,3,2,Sidebar
+17,Which is an example of a sidebar?,A full-page student profile,A list of club members,The yearbook cover,A detailed sports recap,2,3,Sidebar
+18,What is the purpose of a sidebar?,To replace the main story,To provide quick, engaging facts,To include long essays,To list all students,2,3,Sidebar
+19,How should a sidebar be formatted?,As a single paragraph,With bullet points or short sections,As a long narrative,With no formatting,2,2,Sidebar
+20,What makes a sidebar visually distinct?,Using the same font as the main story,Placing it in a colored box or border,Overlapping the main text,Hiding it in the margins,2,4,Sidebar
+21,What is the most important skill for yearbook interviewing?,Typing quickly,Asking open-ended questions,Using a script,Recording without permission,2,3,Interviewing
+22,How should you prepare for a yearbook interview?,Write one question,Research the subject and event,Arrive without notes,Focus only on quotes,2,2,Interviewing
+23,What should you do if an interviewee is nervous?,Ask rapid questions,Build rapport and ask simple questions,Skip the interview,Use complex questions,2,3,Interviewing
+24,How many questions should a yearbook interview include?,1–2,5–10,20–30,Over 50,2,2,Interviewing
+25,What is the best way to record interview responses?,Memory only,Notetaking or audio recording,Guessing later,Only using quotes,2,4,Interviewing
+26,What is the ideal length for a yearbook photo caption?,1–2 words,10–20 words,50–100 words,Over 100 words,2,2,Captioning
+27,What should a yearbook caption include?,Only the photo location,Who, what, and why of the moment,Random facts,Technical camera settings,2,3,Captioning
+28,Which verb tense is best for yearbook captions?,Past tense,Future tense,Mixed tenses,Passive voice,1,2,Captioning
+29,How can you make a caption engaging?,Use generic phrases,Include specific details and action verbs,Write in third person only,Avoid names,2,4,Captioning
+30,What should you verify in a yearbook caption?,Font size,Names and event details,Page number,Photo resolution,2,3,Captioning
+31,What is a key trait of a yearbook team leader?,Micromanaging tasks,Delegating and motivating others,Ignoring deadlines,Focusing only on one role,2,3,Leadership
+32,How should a leader handle a missed deadline?,Ignore it,Communicate and create a recovery plan,Blame the team,Cancel the task,2,2,Leadership
+33,What tool can a yearbook leader use to track progress?,Email only,A project management app like Trello,Paper notes,Verbal updates,2,3,Leadership
+34,How can a leader resolve team conflicts?,Take sides immediately,Listen and mediate fairly,Assign new roles,Avoid discussion,2,4,Leadership
+35,What should a yearbook leader prioritize?,Personal tasks,Team collaboration and morale,Winning awards,Fast completion,2,3,Leadership

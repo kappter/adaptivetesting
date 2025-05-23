@@ -1,11 +1,36 @@
 id,question,option1,option2,option3,option4,correct,difficulty,topic
-1,What is the main role of a robotics programmer?,Build mechanical structures,Write code to control robot behavior,Drive the robot,Document the design,2,2,programmer
-2,Which tool is essential for a robotics builder?,Screwdriver,Joystick,Code editor,Camera,1,2,builder
-3,What skill is most important for a robotics driver?,Writing algorithms,Assembling parts,Precise control of the robot,Creating user manuals,3,3,driver
-4,What is the purpose of a bill of materials in robotics documentation?,Lists competition scores,Details the robot's components and assembly,Records team scores,Tracks robot maintenance,2,3,documenter
-5,Which programming language is commonly used for Arduino robots?,Python,C++,Java,Scratch,2,3,programmer
-6,What is a key responsibility of a robotics team leader?,Driving the robot,Setting project goals and deadlines,Assembling motors,Coding sensors,2,4,leader
-7,What does a PID controller do in robotics?,Controls motor speed,Monitors battery levels,Manages sensor data,Tracks competition time,1,4,programmer
-8,What is a primary task for a robotics builder during competition prep?,Writing match reports,Testing and assembling robot parts,Driving practice runs,Editing code,2,3,builder
-9,What makes effective robotics documentation?,Vague descriptions,Detailed technical logs and diagrams,Team member bios,Competition photos,2,3,documenter
-10,What is a hallmark of a robotics leader's mindset?,Focus on individual tasks,Coordinating team efforts and vision,Building components,Driving robots,2,4,leader
+1,What is the primary role of a Coder in a robotics team?,Design robot aesthetics,Write and debug robot control programs,Assemble mechanical parts,Document team progress,2,2,Coder
+2,Which programming language is commonly used in FIRST Robotics?,Python,Java,C++,All of the above,4,3,Coder
+3,What does a loop do in robot code?,Stops the program,Repeats a set of instructions,Declares a variable,Controls motor speed,2,2,Coder
+4,How can you prevent a robot from crashing into obstacles?,Ignore sensor data,Use ultrasonic or infrared sensors,Increase motor speed,Reduce battery power,2,4,Coder
+5,What is the purpose of debugging in robotics coding?,To make code longer,To find and fix errors,To design the robot,To write documentation,2,3,Coder
+6,What is a common way to structure robot code?,Single long function,Modular functions for tasks,Random code blocks,No structure needed,2,3,Coder
+7,What sensor helps a robot follow a line?,Gyroscope,Color sensor,Ultrasonic sensor,Touch sensor,2,4,Coder
+8,What skill is most important for a robotics Driver?,Writing code,Controlling the robot precisely,Assembling parts,Keeping detailed logs,2,2,Driver
+9,What should a Driver practice to improve performance?,Typing speed,Joystick or controller handling,Mechanical repairs,Documentation,2,3,Driver
+10,During a match, what should a Driver prioritize?,Showing off tricks,Following the game strategy,Maximizing speed,Ignoring teammates,2,3,Driver
+11,How can a Driver prepare for a competition?,Ignore practice,Simulate match scenarios,Redesign the robot,Write code,2,2,Driver
+12,What is a Driver’s role during autonomous mode?,Manually control the robot,Monitor and prepare for teleop,Assemble parts,Update documentation,2,4,Driver
+13,What should a Driver do if the robot malfunctions?,Continue driving,Signal the team for support,Reprogram the robot,Disassemble it,2,3,Driver
+14,What helps a Driver communicate effectively?,Silent focus,Using clear terms with the team,Ignoring teammates,Complex jargon,2,3,Driver
+15,What is the primary task of a robotics Builder?,Write control code,Assemble and test mechanical parts,Drive the robot,Document progress,2,2,Builder
+16,Which tool is essential for a robotics Builder?,Keyboard,Screwdriver,Joystick,Notebook,2,2,Builder
+17,What material is commonly used in robot chassis?,Cardboard,Aluminum or steel,Paper,Glass,2,3,Builder
+18,How can a Builder ensure a robot is durable?,Use weak connectors,Test joints and stress points,Minimize parts,Ignore weight,2,3,Builder
+19,What should a Builder check before a match?,Code updates,Motor and structural integrity,Driving skills,Team logs,2,4,Builder
+20,Why is weight distribution important in robot design?,To increase speed,To improve balance and stability,To add more parts,To reduce costs,2,3,Builder
+21,What is a Builder’s role in prototyping?,Final assembly only,Test and refine designs,Write documentation,Control the robot,2,4,Builder
+22,What is the main goal of a robotics Documenter?,Build the robot,Keep detailed records of progress,Drive in matches,Write code,2,2,Documenter
+23,What should a Documenter include in a team log?,Only match scores,Design changes and test results,Code snippets only,Random notes,2,3,Documenter
+24,Which tool is useful for a Documenter?,Screwdriver,Google Docs or a notebook,Joystick,Code editor,2,2,Documenter
+25,Why is documentation important for a robotics team?,To increase speed,To track progress and learn from mistakes,To replace the robot,To confuse the team,2,3,Documenter
+26,What should a Documenter do during a competition?,Drive the robot,Record match outcomes and issues,Assemble parts,Write code,2,4,Documenter
+27,How often should a Documenter update the log?,Once a month,After every meeting or test,Daily without details,Never,2,2,Documenter
+28,What makes a Documenter’s work effective?,Vague notes,Clear and organized records,Minimal updates,Complex terms,2,3,Documenter
+29,What is a key trait of a robotics team Leader?,Focusing only on coding,Coordinating and motivating the team,Driving the robot,Building alone,2,2,Leader
+30,How should a Leader handle a team disagreement?,Ignore it,Mediate and find a solution,Take one side,Disband the team,2,3,Leader
+31,What tool can a Leader use to manage tasks?,Paper notes only,Trello or Asana,Joystick,Code editor,2,3,Leader
+32,What should a Leader prioritize during a competition?,Personal tasks,Team strategy and communication,Winning at all costs,Minimal involvement,2,4,Leader
+33,How can a Leader improve team performance?,Micromanage,Set clear goals and provide feedback,Focus only on one role,Work alone,2,3,Leader
+34,What should a Leader do if a deadline is missed?,Blame the team,Create a recovery plan,Abandon the task,Drive the robot,2,3,Leader
+35,What is a Leader’s role in robot design?,Write all code,Guide and integrate all roles,Assemble parts only,Document progress,2,4,Leader
