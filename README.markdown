@@ -13,16 +13,18 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Adaptive Testing**: Adjusts question difficulty (increases for correct, decreases for incorrect).
 - **Scoring**: Awards points based on difficulty (10 points per level, max 50 per question).
 - **Feedback**: Immediate feedback and recommendations after 10 questions.
-- **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
-- **Fixed Footer**: Themed background (mustard yellow) with styled links (deep pink-magenta, underlined on hover) for related resources.
+- **Printable Report**: HTML report with student name, dynamic test title, score, recommendation, and date, printable via browser.
+- **Fixed Footer**: Themed background (mustard yellow) with styled dark blue links (underlined on hover) for related resources.
 - **Custom Color Theme**: Uses hex colors 2BAFB9 (cyan-teal), E1E9E0 (light grayish-white), C71E5D (deep pink-magenta), 1525D1 (bright blue), and 10054E (dark navy), with white test tile backdrop.
+- **Answered Question Highlight**: Selected answers marked with bright blue until "Next" is clicked.
+- **Dynamic Title**: Title updates to reflect the selected test, also shown in the report.
 - **Centered Layout**: Fixed-width test area (672px) centered on the page for consistent presentation.
 - **GitHub Pages Compatible**: Fully client-side.
 
 ## File Structure
 - `index.html`: HTML with name input, test selection, start button, test interface, print button, and themed fixed footer.
 - `styles.css`: Custom CSS for styling input, buttons, options, footer, and color theme.
-- `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, and report generation.
+- `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, dynamic title, and report generation.
 - `questions_ib_computer_science.csv`: Questions for IB Computer Science Test (Java-focused).
 - `questions_ap_computer_science.csv`: Questions for AP Computer Science A Test (Java-focused).
 - `questions_yearbook.csv`: Questions for Yearbook Skills Test.
@@ -52,15 +54,15 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 ## Usage
 - Open the test via the GitHub Pages URL.
 - Enter your name (optional, defaults to "Anonymous").
-- Select a test (IB, AP, Yearbook, Photography, or Robotics) from the dropdown; Start button enables once selected.
+- Select a test (IB, AP, Yearbook, Photography, or Robotics) from the dropdown; the title updates to reflect the test (e.g., "IB Computer Science Test"), and the Start button enables.
 - Click Start to begin.
-- Answer 10 questions by clicking an option.
-- Receive immediate feedback (correct/incorrect with correct answer).
+- Answer 10 questions by clicking an option; the selected option is highlighted in bright blue until "Next" is clicked.
+- Receive immediate feedback (correct in cyan-teal, incorrect in deep pink-magenta).
 - After 10 questions, view score, recommendation, and Print Report button:
   - **IB/AP**: Readiness for SL/HL or AP exam (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
-- Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
-- The fixed footer displays a themed background (mustard yellow) with styled links (deep pink-magenta, underlined on hover) at the bottom.
+- Click Print Report for a summary (name, dynamic test title, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
+- The fixed footer displays a mustard yellow background with dark blue links (underlined on hover) at the bottom.
 - The test area is centered with a fixed width (672px) and white backdrop for a clean, focused interface.
 
 ## Customization
@@ -78,8 +80,10 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
 - Color theme (2BAFB9, E1E9E0, C71E5D, 1525D1, 10054E) ensures high text contrast and avoids rival school green tones, with a white test tile backdrop.
-- Footer retains mustard yellow background with deep pink-magenta links; replace placeholder `#` URLs as needed.
-- Centered, fixed-width test area (672px) and fixed footer align with your educational tool interests.
+- Footer uses mustard yellow background with dark navy links (10054E, hover to 1525D1); replace placeholder `#` URLs as needed.
+- Selected answers are marked in bright blue (1525D1) until "Next" is clicked, distinct from feedback colors.
+- Dynamic test title updates in the UI and report, aligning with your educational tool interests.
+- Centered, fixed-width test area (672px) and fixed footer maintain the preferred layout.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License

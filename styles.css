@@ -1,15 +1,17 @@
 :root {
   --primary: #10054E; /* Dark navy for text */
   --secondary: #2BAFB9; /* Cyan-teal for borders, correct feedback */
-  --accent: #C71E5D; /* Deep pink-magenta for links, incorrect feedback */
-  --highlight: #1525D1; /* Bright blue for buttons, hovers */
+  --accent: #C71E5D; /* Deep pink-magenta for incorrect feedback */
+  --highlight: #1525D1; /* Bright blue for buttons, selected option */
   --bg-light: #E1E9E0; /* Light grayish-white for body background */
   --bg-container: #FFFFFF; /* White for main container */
   --text-light: #E1E9E0; /* Light grayish-white for button/footer text */
   --disabled-bg: #B0B7C3; /* Light gray for disabled button */
-  --footer-bg: #A38729; /* Mustard yellow for footer (retained) */
+  --footer-bg: #A38729; /* Mustard yellow for footer */
   --footer-text: #E1E9E0; /* Light grayish-white for footer text */
-  --accent-light: #E84A82; /* Lighter pink-magenta for link hover */
+  --footer-link: #10054E; /* Dark navy for footer links */
+  --footer-link-hover: #1525D1; /* Bright blue for footer link hover */
+  --accent-light: #E84A82; /* Lighter pink-magenta for hover (unused) */
   --highlight-hover: #0D1A8F; /* Darker blue for button hover */
 }
 
@@ -35,13 +37,18 @@ body.body-bg {
 
 .option {
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   padding: 0.75rem;
   border: 1px solid var(--secondary);
   border-radius: 0.375rem;
 }
 
 .option:hover {
+  background-color: var(--highlight);
+  color: var(--text-light);
+}
+
+.selected {
   background-color: var(--highlight);
   color: var(--text-light);
 }
@@ -94,7 +101,7 @@ select:focus, input[type="text"]:focus {
 }
 
 .footer-link {
-  color: var(--accent);
+  color: var(--footer-link);
   text-decoration: none;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
@@ -102,7 +109,7 @@ select:focus, input[type="text"]:focus {
 }
 
 .footer-link:hover {
-  color: var(--accent-light);
+  color: var(--footer-link-hover);
   text-decoration: underline;
 }
 

@@ -4,12 +4,17 @@ let score = 0;
 let questionHistory = [];
 let testType = '';
 let studentName = '';
+let testTitle = 'Adaptive Skills Test';
 const totalQuestions = 10;
 
-// Enable/disable start button
+// Enable/disable start button and update title
 document.getElementById('test-type').addEventListener('change', (e) => {
   testType = e.target.value;
   document.getElementById('start-btn').disabled = !testType;
+  // Update title based on selected test
+  const testSelect = e.target;
+  testTitle = testSelect.options[testSelect.selectedIndex].text || 'Adaptive Skills Test';
+  document.getElementById('test-title').innerText = testTitle;
 });
 
 // Start test
@@ -109,15 +114,18 @@ function selectOption(selected) {
   const q = questions[currentQuestionIndex];
   const feedback = document.getElementById('feedback');
   const options = document.querySelectorAll('.option');
+  // Mark selected option
+  options.forEach(opt => opt.classList.remove('selected'));
+  options[selected - 1].classList.add('selected');
   feedback.classList.remove('hidden');
   if (selected === q.correct) {
     feedback.innerText = 'Correct!';
-    feedback.className = 'mb-4 text-green-600';
+    feedback.className = 'mb-4 text-light correct';
     score += q.difficulty * 10;
     currentQuestionIndex = selectQuestion(q.difficulty + 1);
   } else {
     feedback.innerText = `Incorrect. Correct answer: ${q.options[q.correct - 1]}`;
-    feedback.className = 'mb-4 text-green-600';
+    feedback.className = 'mb-4 text-light incorrect';
     options[selected - 1].classList.add('incorrect');
     currentQuestionIndex = selectQuestion(q.difficulty - 1);
   }
@@ -128,6 +136,9 @@ function selectOption(selected) {
 
 // Show next question
 document.getElementById('next-btn').onclick = () => {
+  // Clear selected class
+  const options = document.querySelectorAll('.option');
+  options.forEach(opt => opt.classList.remove('selected'));
   if (questionHistory.length < totalQuestions) {
     displayQuestion();
   } else {
@@ -173,28 +184,25 @@ function getTopTopics() {
 
 // Print report
 document.getElementById('print-btn').addEventListener('click', () => {
-  const testName = testType === 'ib_computer_science' ? 'IB Computer Science' :
-                   testType === 'ap_computer_science' ? 'AP Computer Science A' :
-                   testType.charAt(0).toUpperCase() + testType.slice(1);
   let recommendation = document.getElementById('recommendation').innerText;
   const reportWindow = window.open('', '_blank');
   reportWindow.document.write(`
     <html>
       <head>
-        <title>Test Report - ${studentName}</title>
+        <title>${testTitle} Report - ${studentName}</title>
         <style>
           body { font-family: Arial, sans-serif; margin: 40px; }
           h1 { text-align: center; }
           .report { max-width: 600px; margin: 0 auto; }
           .report p { margin: 10px 0; }
-          .print-btn { display: block; margin: 20px auto; padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+          .print-btn { display: block; margin: 20px auto; padding: 10px 20px; background: #1525D1; color: #E1E9E0; border: none; border-radius: 5px; cursor: pointer; }
         </style>
       </head>
       <body>
-        <h1>Test Report</h1>
+        <h1>${testTitle} Report</h1>
         <div class="report">
           <p><strong>Student Name:</strong> ${studentName}</p>
-          <p><strong>Test:</strong> ${testName} Skills Test</p>
+          <p><strong>Test:</strong> ${testTitle}</p>
           <p><strong>Score:</strong> ${score} / ${totalQuestions * 50}</p>
           <p><strong>Recommendation:</strong> ${recommendation}</p>
           <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
