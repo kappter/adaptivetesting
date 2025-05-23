@@ -43,4 +43,16 @@ This is an adaptive test to evaluate incoming programming students' skills in co
 - **Adjust Test Length**: Modify `totalQuestions` in `script.js` (default: 10).
 - **Change Scoring**: Adjust the scoring formula in `script.js` (`score += q.difficulty * 10`).
 - **Style Updates**: Edit `styles.css` for custom styling or modify Tailwind classes in `index.html`.
-- **Recommendation Threshold
+- **Recommendation Threshold**: Change the threshold in `showResults()` in `script.js` (default: `score >= totalQuestions * 40`).
+
+## Notes
+- The test is fully client-side, requiring no server-side processing, making it ideal for GitHub Pages.
+- Ensure `questions.csv` is in the repository root, as it’s fetched via JavaScript’s `fetch` API.
+- For a similar test for yearbook students (e.g., assessing writers, graphics, etc.), duplicate this structure and modify `questions.csv` and the UI/logic as needed.
+- To track user progress across sessions, a backend would be required (not supported on GitHub Pages).
+
+## License
+MIT License. Feel free to use, modify, and distribute.
+
+## Contact
+For issues or suggestions, open an issue on the GitHub repository or contact [your contact info].
