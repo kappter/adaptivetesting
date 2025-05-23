@@ -14,11 +14,12 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Scoring**: Awards points based on difficulty (10 points per level, max 50 per question).
 - **Feedback**: Immediate feedback and recommendations after 10 questions.
 - **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
+- **Fixed Footer**: Includes copyright notice, usage statement, and links to related resources.
 - **GitHub Pages Compatible**: Fully client-side, using Tailwind CSS (via CDN).
 
 ## File Structure
-- `index.html`: HTML with name input, test selection, start button, test interface, and print button.
-- `styles.css`: Custom CSS for styling input, buttons, and options.
+- `index.html`: HTML with name input, test selection, start button, test interface, print button, and fixed footer.
+- `styles.css`: Custom CSS for styling input, buttons, options, and footer.
 - `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, and report generation.
 - `questions_ib_computer_science.csv`: Questions for IB Computer Science Test (Java-focused).
 - `questions_ap_computer_science.csv`: Questions for AP Computer Science A Test (Java-focused).
@@ -36,7 +37,9 @@ This platform provides adaptive tests to evaluate skills for various disciplines
    - Edit the respective CSV to add/modify questions.
    - Format: `id,question,option1,option2,option3,option4,correct,difficulty,topic`
    - `correct`: Option number (1-4), `difficulty`: 1-5, `topic`: Test-specific (e.g., `algorithms`, `control structures`).
-4. **Deploy to GitHub Pages**:
+4. **Customize Footer Links** (optional):
+   - Edit `index.html` to replace placeholder `#` URLs in the footer with actual links (e.g., portfolio, tool pages).
+5. **Deploy to GitHub Pages**:
    - Create a GitHub repository (e.g., `<your-username>/skills-test`).
    - Push files to `main` or `gh-pages` branch.
    - Enable GitHub Pages in repository settings, selecting the branch.
@@ -53,13 +56,14 @@ This platform provides adaptive tests to evaluate skills for various disciplines
   - **IB/AP**: Readiness for SL/HL or AP exam (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
-- Switch tests via dropdown to restart; retake by refreshing or reselecting.
+- The fixed footer displays copyright and links at the bottom of the page.
 
 ## Customization
 - **Add Questions**: Append rows to the relevant CSV with unique IDs.
 - **Test Length**: Modify `totalQuestions` in `script.js` (default: 10).
 - **Scoring**: Adjust formula in `script.js` (`score += q.difficulty * 10`).
 - **Styling**: Edit `styles.css` or Tailwind classes in `index.html`.
+- **Footer**: Update footer links in `index.html` to point to specific URLs.
 - **Recommendations**: Adjust threshold in `showResults()` or `getTopTopics()` in `script.js`.
 - **Report**: Modify report HTML in `print-btn` event listener in `script.js`.
 - **Topics**: Adjust CSV topics to align with curricula or roles.
@@ -67,8 +71,9 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 ## Notes
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
-- IB and AP tests use Java, tailored to their curricula (e.g., IB: algorithms, file handling; AP: classes, ArrayList).
-- Name input and report align with your interest in personalized educational tools.
+- IB and AP tests use Java, tailored to their curricula.
+- Footer links are placeholders (`#`); replace with actual URLs as needed.
+- Name input, report, and footer align with your interest in personalized educational tools.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License

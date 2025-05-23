@@ -28,3 +28,6 @@ select:focus, input[type="text"]:focus {
 #start-btn:not(:disabled):hover {
   background-color: #2563eb;
 }
+footer {
+  z-index: 10;
+}
