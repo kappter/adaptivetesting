@@ -2,10 +2,25 @@ let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let questionHistory = [];
-let testType = 'programming';
+let testType = '';
+let studentName = '';
 const totalQuestions = 10;
 
-// Load test based on selection
+// Enable/disable start button
+document.getElementById('test-type').addEventListener('change', (e) => {
+  testType = e.target.value;
+  document.getElementById('start-btn').disabled = !testType;
+});
+
+// Start test
+document.getElementById('start-btn').addEventListener('click', () => {
+  studentName = document.getElementById('student-name').value.trim() || 'Anonymous';
+  document.getElementById('start-container').classList.add('hidden');
+  document.getElementById('test-container').classList.remove('hidden');
+  loadTest();
+});
+
+// Load test
 function loadTest() {
   const loadingDiv = document.getElementById('loading');
   loadingDiv.classList.remove('hidden');
@@ -52,7 +67,7 @@ function startTest() {
   displayQuestion();
 }
 
-// Select next question based on performance
+// Select next question
 function selectQuestion(currentDifficulty) {
   const unanswered = questions.filter(q => !questionHistory.includes(q.id));
   let candidates = unanswered.filter(q => q.difficulty === currentDifficulty);
@@ -116,7 +131,7 @@ document.getElementById('next-btn').onclick = () => {
   }
 };
 
-// Show final results
+// Show results
 function showResults() {
   document.getElementById('question-container').classList.add('hidden');
   document.getElementById('next-btn').classList.add('hidden');
@@ -127,16 +142,16 @@ function showResults() {
     recommendation = score >= totalQuestions * 40
       ? 'You are well-prepared for the advanced programming class!'
       : 'You may benefit from reviewing control structures, objects, and collections before the advanced class.';
-  } else {
+  } else if (testType === 'yearbook' || testType === 'photography' || testType === 'robotics') {
     const topTopics = getTopTopics();
     recommendation = score >= totalQuestions * 40
-      ? `You are well-suited for yearbook roles such as ${topTopics.join(' or ')}!`
-      : `You may benefit from practicing skills in ${topTopics.join(', ')} for yearbook roles.`;
+      ? `You are well-suited for ${testType} roles such as ${topTopics.join(' or ')}!`
+      : `You may benefit from practicing skills in ${topTopics.join(', ')} for ${testType} roles.`;
   }
   document.getElementById('recommendation').innerText = recommendation;
 }
 
-// Get top-performing topics for yearbook
+// Get top-performing topics
 function getTopTopics() {
   const topicScores = {};
   questions.forEach(q => {
@@ -148,11 +163,35 @@ function getTopTopics() {
   return Object.keys(topicScores).sort((a, b) => topicScores[b] - topicScores[a]).slice(0, 2);
 }
 
-// Handle test type change
-document.getElementById('test-type').addEventListener('change', (e) => {
-  testType = e.target.value;
-  loadTest();
+// Print report
+document.getElementById('print-btn').addEventListener('click', () => {
+  const testName = testType.charAt(0).toUpperCase() + testType.slice(1);
+  let recommendation = document.getElementById('recommendation').innerText;
+  const reportWindow = window.open('', '_blank');
+  reportWindow.document.write(`
+    <html>
+      <head>
+        <title>Test Report - ${studentName}</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 40px; }
+          h1 { text-align: center; }
+          .report { max-width: 600px; margin: 0 auto; }
+          .report p { margin: 10px 0; }
+          .print-btn { display: block; margin: 20px auto; padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        </style>
+      </head>
+      <body>
+        <h1>Test Report</h1>
+        <div class="report">
+          <p><strong>Student Name:</strong> ${studentName}</p>
+          <p><strong>Test:</strong> ${testName} Skills Test</p>
+          <p><strong>Score:</strong> ${score} / ${totalQuestions * 50}</p>
+          <p><strong>Recommendation:</strong> ${recommendation}</p>
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print</button>
+      </body>
+    </html>
+  `);
+  reportWindow.document.close();
 });
-
-// Initial load
-loadTest();
