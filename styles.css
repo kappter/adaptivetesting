@@ -1,16 +1,16 @@
 :root {
-  --primary: #6A4A62; /* Deep plum for text, buttons */
-  --secondary: #6D7D8F; /* Steel blue for borders */
-  --accent: #66EBAE; /* Vibrant green for links, correct feedback */
-  --highlight: #A38729; /* Mustard yellow for hovers, incorrect feedback */
-  --bg-light: #A9DBB6; /* Light green for body background */
+  --primary: #10054E; /* Dark navy for text */
+  --secondary: #2BAFB9; /* Cyan-teal for borders, correct feedback */
+  --accent: #C71E5D; /* Deep pink-magenta for links, incorrect feedback */
+  --highlight: #1525D1; /* Bright blue for buttons, hovers */
+  --bg-light: #E1E9E0; /* Light grayish-white for body background */
   --bg-container: #FFFFFF; /* White for main container */
-  --accent-light: #8CFFD2; /* Lighter vibrant green for hover */
-  --highlight-light: #C9A32F; /* Lighter mustard yellow for hover */
-  --disabled-bg: #B0B7C3; /* Lighter gray for disabled button */
-  --text-light: #FFFFFF; /* White for button text */
-  --footer-bg: #A38729; /* Mustard yellow for footer background */
-  --footer-text: #A9DBB6; /* Light green for footer text */
+  --text-light: #E1E9E0; /* Light grayish-white for button/footer text */
+  --disabled-bg: #B0B7C3; /* Light gray for disabled button */
+  --footer-bg: #A38729; /* Mustard yellow for footer (retained) */
+  --footer-text: #E1E9E0; /* Light grayish-white for footer text */
+  --accent-light: #E84A82; /* Lighter pink-magenta for link hover */
+  --highlight-hover: #0D1A8F; /* Darker blue for button hover */
 }
 
 body.body-bg {
@@ -43,14 +43,17 @@ body.body-bg {
 
 .option:hover {
   background-color: var(--highlight);
+  color: var(--text-light);
 }
 
 .correct {
-  background-color: var(--accent);
+  background-color: var(--secondary);
+  color: var(--text-light);
 }
 
 .incorrect {
-  background-color: var(--highlight);
+  background-color: var(--accent);
+  color: var(--text-light);
 }
 
 select, input[type="text"] {
@@ -69,12 +72,12 @@ select:focus, input[type="text"]:focus {
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background-color: var(--highlight);
   color: var(--text-light);
 }
 
 .btn-primary:not(:disabled):hover {
-  background-color: #4A2F44; /* Darker plum for hover */
+  background-color: var(--highlight-hover);
 }
 
 .btn-primary:not(:disabled) {

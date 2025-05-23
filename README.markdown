@@ -14,8 +14,8 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Scoring**: Awards points based on difficulty (10 points per level, max 50 per question).
 - **Feedback**: Immediate feedback and recommendations after 10 questions.
 - **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
-- **Fixed Footer**: Themed background (mustard yellow) with styled links (vibrant green, underlined on hover) for related resources.
-- **Custom Color Theme**: Uses hex colors A9DBB6 (light green), 6A4A62 (deep plum), 6D7D8F (steel blue), A38729 (mustard yellow), and 66EBAE (vibrant green).
+- **Fixed Footer**: Themed background (mustard yellow) with styled links (deep pink-magenta, underlined on hover) for related resources.
+- **Custom Color Theme**: Uses hex colors 2BAFB9 (cyan-teal), E1E9E0 (light grayish-white), C71E5D (deep pink-magenta), 1525D1 (bright blue), and 10054E (dark navy), with white test tile backdrop.
 - **Centered Layout**: Fixed-width test area (672px) centered on the page for consistent presentation.
 - **GitHub Pages Compatible**: Fully client-side.
 
@@ -42,7 +42,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 4. **Customize Footer Links** (optional):
    - Edit `index.html` to replace placeholder `#` URLs in the footer with actual links (e.g., portfolio, tool pages).
 5. **Customize Colors** (optional):
-   - Modify `:root` variables in `styles.css` to adjust the color theme (hex codes: A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE).
+   - Modify `:root` variables in `styles.css` to adjust the color theme (hex codes: 2BAFB9, E1E9E0, C71E5D, 1525D1, 10054E).
 6. **Deploy to GitHub Pages**:
    - Create a GitHub repository (e.g., `<your-username>/skills-test`).
    - Push files to `main` or `gh-pages` branch.
@@ -60,8 +60,8 @@ This platform provides adaptive tests to evaluate skills for various disciplines
   - **IB/AP**: Readiness for SL/HL or AP exam (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
-- The fixed footer displays a themed background (mustard yellow) with styled links (vibrant green, underlined on hover) at the bottom.
-- The test area is centered with a fixed width (672px) for a clean, focused interface.
+- The fixed footer displays a themed background (mustard yellow) with styled links (deep pink-magenta, underlined on hover) at the bottom.
+- The test area is centered with a fixed width (672px) and white backdrop for a clean, focused interface.
 
 ## Customization
 - **Add Questions**: Append rows to the relevant CSV with unique IDs.
@@ -77,8 +77,8 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
-- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal with a themed footer and styled links.
-- Footer links are placeholders (`#`); replace with actual URLs as needed.
+- Color theme (2BAFB9, E1E9E0, C71E5D, 1525D1, 10054E) ensures high text contrast and avoids rival school green tones, with a white test tile backdrop.
+- Footer retains mustard yellow background with deep pink-magenta links; replace placeholder `#` URLs as needed.
 - Centered, fixed-width test area (672px) and fixed footer align with your educational tool interests.
 - Backend needed for saving results (not supported on GitHub Pages).
 
