@@ -15,11 +15,12 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Feedback**: Immediate feedback and recommendations after 10 questions.
 - **Printable Report**: HTML report with name, test type, score, recommendation, and date, printable via browser.
 - **Fixed Footer**: Includes copyright notice, usage statement, and links to related resources.
-- **GitHub Pages Compatible**: Fully client-side, using Tailwind CSS (via CDN).
+- **Custom Color Theme**: Uses hex colors A9DBB6 (light green), 6A4A62 (deep plum), 6D7D8F (steel blue), A38729 (mustard yellow), and 66EBAE (vibrant green).
+- **GitHub Pages Compatible**: Fully client-side.
 
 ## File Structure
 - `index.html`: HTML with name input, test selection, start button, test interface, print button, and fixed footer.
-- `styles.css`: Custom CSS for styling input, buttons, options, and footer.
+- `styles.css`: Custom CSS for styling input, buttons, options, footer, and color theme.
 - `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, and report generation.
 - `questions_ib_computer_science.csv`: Questions for IB Computer Science Test (Java-focused).
 - `questions_ap_computer_science.csv`: Questions for AP Computer Science A Test (Java-focused).
@@ -39,7 +40,9 @@ This platform provides adaptive tests to evaluate skills for various disciplines
    - `correct`: Option number (1-4), `difficulty`: 1-5, `topic`: Test-specific (e.g., `algorithms`, `control structures`).
 4. **Customize Footer Links** (optional):
    - Edit `index.html` to replace placeholder `#` URLs in the footer with actual links (e.g., portfolio, tool pages).
-5. **Deploy to GitHub Pages**:
+5. **Customize Colors** (optional):
+   - Modify `:root` variables in `styles.css` to adjust the color theme (hex codes: A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE).
+6. **Deploy to GitHub Pages**:
    - Create a GitHub repository (e.g., `<your-username>/skills-test`).
    - Push files to `main` or `gh-pages` branch.
    - Enable GitHub Pages in repository settings, selecting the branch.
@@ -56,13 +59,13 @@ This platform provides adaptive tests to evaluate skills for various disciplines
   - **IB/AP**: Readiness for SL/HL or AP exam (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report for a summary (name, test, score, recommendation, date); print via browser (Ctrl+P or Cmd+P).
-- The fixed footer displays copyright and links at the bottom of the page.
+- The fixed footer displays copyright and links at the bottom, styled with the custom theme.
 
 ## Customization
 - **Add Questions**: Append rows to the relevant CSV with unique IDs.
 - **Test Length**: Modify `totalQuestions` in `script.js` (default: 10).
 - **Scoring**: Adjust formula in `script.js` (`score += q.difficulty * 10`).
-- **Styling**: Edit `styles.css` or Tailwind classes in `index.html`.
+- **Styling**: Edit `styles.css` to adjust colors, fonts, or layout.
 - **Footer**: Update footer links in `index.html` to point to specific URLs.
 - **Recommendations**: Adjust threshold in `showResults()` or `getTopTopics()` in `script.js`.
 - **Report**: Modify report HTML in `print-btn` event listener in `script.js`.
@@ -72,8 +75,8 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
+- Color theme (A9DBB6, 6A4A62, 6D7D8F, A38729, 66EBAE) enhances visual appeal, aligning with your educational tool interests.
 - Footer links are placeholders (`#`); replace with actual URLs as needed.
-- Name input, report, and footer align with your interest in personalized educational tools.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License
