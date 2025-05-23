@@ -18,6 +18,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Custom Color Theme**: Uses hex colors 2BAFB9 (cyan-teal), E1E9E0 (light grayish-white), C71E5D (deep pink-magenta), 1525D1 (bright blue), and 10054E (dark navy), with white test tile backdrop.
 - **Dynamic Title**: Title updates to reflect the selected test (e.g., "Basic Robotics Skills Test"), also shown in the report.
 - **Role Recommendation**: Recommends a specific role for yearbook (Design, Photography, etc.) or robotics (Coder, Driver, Builder, Documenter, Leader) based on performance.
+- **Start Button Behavior**: Start button visually transitions to an enabled state (bright blue, clickable) when a test is selected, ensuring clarity.
 - **Centered Layout**: Fixed-width test area (672px) centered on the page for consistent presentation.
 - **GitHub Pages Compatible**: Fully client-side.
 
@@ -54,7 +55,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 ## Usage
 - Open the test via the GitHub Pages URL.
 - Enter your name (optional, defaults to "Anonymous").
-- Select a test (e.g., "Basic Robotics Skills Test") from the dropdown; the title updates to reflect the test, and the Start button enables.
+- Select a test (e.g., "Basic Robotics Skills Test") from the dropdown; the title updates, and the Start button changes to a bright blue, clickable state.
 - Click Start to begin.
 - Answer 10 questions by clicking an option; the selected option is highlighted in bright blue (1525D1) until "Next" is clicked.
 - Receive immediate feedback (correct in cyan-teal 2BAFB9, incorrect in deep pink-magenta C71E5D).
@@ -66,25 +67,26 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - The test area is centered with a fixed width (672px) and white backdrop for a clean, focused interface.
 
 ## Customization
-- **Add Questions**: Append rows to the relevant CSV with unique IDs, especially for `questions_robotics.csv` to cover all five roles.
+- **Add Questions**: Append rows to the relevant CSV with unique IDs, especially for `questions_robotics.csv` or `questions_yearbook.csv`.
 - **Test Length**: Modify `totalQuestions` in `script.js` (default: 10).
 - **Scoring**: Adjust formula in `script.js` (`score += q.difficulty * 10`).
 - **Styling**: Edit `styles.css` to adjust colors, fonts, or layout.
 - **Footer**: Update footer links in `index.html` to point to specific URLs.
 - **Recommendations**: Adjust threshold in `showResults()` or `getTopRole()` in `script.js` (e.g., tweak Leader criteria).
 - **Report**: Modify report HTML in `print-btn` event listener in `script.js`.
-- **Topics**: For robotics, ensure CSV topics align with Coder, Driver, Builder, Documenter, or Leader.
+- **Topics**: For robotics, ensure CSV topics align with Coder, Driver, Builder, Documenter, or Leader; for yearbook, use Design, Photography, Copywriting, Sidebar, Interviewing, Captioning, or Leadership.
 
 ## Notes
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
 - IB and AP tests use Java, tailored to their curricula.
-- Robotics test recommends a specific role (Coder, Driver, Builder, Documenter, or Leader) based on performance, with Leader requiring strength across multiple skills and expanded questions for accuracy.
+- Robotics test recommends a specific role (Coder, Driver, Builder, Documenter, or Leader) based on performance, with Leader requiring strength across multiple skills.
 - Yearbook test recommends a specific role (Design, Photography, etc.) with similar logic.
+- Start button visually indicates clickability (bright blue 1525D1) when a test is selected, improving user experience.
 - Color theme (2BAFB9, E1E9E0, C71E5D, 1525D1, 10054E) ensures high text contrast and avoids rival school green tones, with a white test tile backdrop.
 - Footer uses mustard yellow background with dark navy links (10054E, hover to 1525D1); replace placeholder `#` URLs as needed.
 - Selected answers are marked in bright blue (1525D1) until "Next" is clicked, distinct from feedback colors.
-- Dynamic test title updates in the UI and report, aligning with your educational tool interests, such as robotics team advising.
+- Dynamic test title updates in the UI and report, aligning with your educational tool interests, such as robotics and yearbook advising.
 - Centered, fixed-width test area (672px) and fixed footer maintain the preferred layout.
 - Backend needed for saving results (not supported on GitHub Pages).
 

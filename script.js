@@ -10,7 +10,16 @@ const totalQuestions = 10;
 // Enable/disable start button and update title
 document.getElementById('test-type').addEventListener('change', (e) => {
   testType = e.target.value;
-  document.getElementById('start-btn').disabled = !testType;
+  const startBtn = document.getElementById('start-btn');
+  if (testType) {
+    startBtn.disabled = false;
+    startBtn.classList.remove('btn-disabled');
+    startBtn.classList.add('btn-primary');
+  } else {
+    startBtn.disabled = true;
+    startBtn.classList.remove('btn-primary');
+    startBtn.classList.add('btn-disabled');
+  }
   // Update title based on selected test
   const testSelect = e.target;
   testTitle = testSelect.options[testSelect.selectedIndex].text || 'Adaptive Skills Test';

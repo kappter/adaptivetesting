@@ -76,19 +76,18 @@ select:focus, input[type="text"]:focus {
   background-color: var(--disabled-bg);
   color: var(--text-light);
   cursor: not-allowed;
+  opacity: 0.6; /* Slightly dimmed for disabled state */
 }
 
 .btn-primary {
   background-color: var(--highlight);
   color: var(--text-light);
-}
-
-.btn-primary:not(:disabled):hover {
-  background-color: var(--highlight-hover);
-}
-
-.btn-primary:not(:disabled) {
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--highlight-hover);
 }
 
 .footer-themed {
