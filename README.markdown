@@ -5,7 +5,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 ## Features
 - **Student Name Input**: Enter a name before starting the test, included in results and reports.
 - **Test Selection**: Choose from four tests via a dropdown menu (start button disabled until a test is selected):
-  - **Programming Skills Test**: Assesses control structures, objects, and collections for advanced class placement.
+  - **Programming Skills Test**: Assesses Java control structures, objects, and collections (e.g., ArrayList) for AP/IB Computer Science preparation.
   - **Yearbook Skills Test**: Evaluates writing, graphics, photography, design/layout, sidebar, and leadership.
   - **DSLR Photography Skills Test**: Tests camera operation, composition, lighting, editing, and creative vision for roles like photographer or editor.
   - **Basic Robotics Skills Test**: Assesses programming, building, driving, documentation, and leadership for robotics roles.
@@ -19,7 +19,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - `index.html`: HTML with name input, test selection, start button, test interface, and print button.
 - `styles.css`: Custom CSS for styling, including input, buttons, and options.
 - `script.js`: JavaScript for CSV loading, adaptive logic, UI updates, and report generation.
-- `questions_programming.csv`: Questions for Programming Skills Test.
+- `questions_programming.csv`: Questions for Programming Skills Test (Java-focused for AP/IB).
 - `questions_yearbook.csv`: Questions for Yearbook Skills Test.
 - `questions_photography.csv`: Questions for DSLR Photography Skills Test.
 - `questions_robotics.csv`: Questions for Basic Robotics Skills Test.
@@ -33,7 +33,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 3. **Customize Questions** (optional):
    - Edit the respective CSV to add/modify questions.
    - Format: `id,question,option1,option2,option3,option4,correct,difficulty,topic`
-   - `correct`: Option number (1-4), `difficulty`: 1-5, `topic`: Test-specific (e.g., `programmer`, `composition`).
+   - `correct`: Option number (1-4), `difficulty`: 1-5, `topic`: Test-specific (e.g., `control structures`, `composition`).
 4. **Deploy to GitHub Pages**:
    - Create a GitHub repository (e.g., `<your-username>/skills-test`).
    - Push files to `main` or `gh-pages` branch.
@@ -48,7 +48,7 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - Answer 10 questions by clicking an option.
 - Receive immediate feedback (correct/incorrect with correct answer).
 - After 10 questions, view score, recommendation, and a Print Report button:
-  - **Programming**: Advanced class suitability (threshold: 80% or 400/500 points).
+  - **Programming**: Advanced class suitability for AP/IB Java (threshold: 80% or 400/500 points).
   - **Yearbook/Photography/Robotics**: Suggested roles based on top topics.
 - Click Print Report to open a new window with a summary (name, test, score, recommendation, date); use browser print (Ctrl+P or Cmd+P).
 - Switch tests via dropdown to restart; retake by refreshing or reselecting.
@@ -60,12 +60,13 @@ This platform provides adaptive tests to evaluate skills for various disciplines
 - **Styling**: Edit `styles.css` or Tailwind classes in `index.html`.
 - **Recommendations**: Adjust threshold in `showResults()` or `getTopTopics()` in `script.js`.
 - **Report**: Modify the report HTML in the `print-btn` event listener in `script.js`.
-- **Topics**: Adjust CSV topics to align with specific roles/skills.
+- **Topics**: Adjust CSV topics to align with specific roles/skills (e.g., Java-specific for Programming).
 
 ## Notes
 - Fully client-side, ideal for GitHub Pages.
 - CSV files must be in the repository root for `fetch` API.
-- Name input and report enhance personalization, aligning with your interest in educational tools (e.g., personality pairing apps).
+- Programming test uses Java syntax to align with AP/IB Computer Science curricula.
+- Name input and report enhance personalization, aligning with your interest in educational tools.
 - Backend needed for saving results (not supported on GitHub Pages).
 
 ## License

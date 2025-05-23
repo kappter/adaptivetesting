@@ -1,11 +1,11 @@
 id,question,option1,option2,option3,option4,correct,difficulty,topic
-1,What does this control structure do: `if (x > 0) { return x; } else { return -x; }`?,Returns x,Returns the absolute value of x,Returns -x,Returns 0,2,2,control structures
-2,Which loop is best for iterating over an array of unknown length?,for loop,while loop,do-while loop,forEach loop,4,3,control structures
-3,What is the output of this code: `let x = 5; while (x > 0) { console.log(x); x--; }`?,5 4 3 2 1,1 2 3 4 5,5 4 3 2,Infinite loop,1,3,control structures
-4,How do you access a property of an object in JavaScript?,obj.property,obj(property),obj::property,obj->property,1,2,objects
-5,What is the purpose of a constructor in a JavaScript class?,To initialize object properties,To define static methods,To inherit properties,To loop through properties,1,4,objects
-6,Which method adds an element to the end of an array?,push(),pop(),shift(),unshift(),1,2,collections
-7,What does `Array.prototype.map()` do?,Modifies the array,Creates a new array with transformed elements,Removes elements,Sorts the array,2,4,collections
-8,What is the result of `{ a: 1, b: 2 }['a']` in JavaScript?,1,2,undefined,Error,1,3,objects
-9,Which control structure exits a loop early?,break,continue,return,throw,1,3,control structures
-10,How do you create an empty Set in JavaScript?,new Set(),Set.create(),new Set([]),Set(),1,4,collections
+1,What is the output of: `int x = 5; if (x > 3) { System.out.println(x); } else { System.out.println(-x); }`?,5,-5,3,Error,1,2,control structures
+2,Which loop is best for iterating over an ArrayList of unknown size?,for loop,while loop,do-while loop,enhanced for loop,4,3,control structures
+3,What is the output of: `int i = 1; while (i <= 3) { System.out.print(i); i++; }`?,123,321,12,Error,1,3,control structures
+4,How do you access an instance variable in a Java class?,this.variable,variable(),Class.variable,super.variable,1,2,objects
+5,What is the purpose of a constructor in a Java class?,To define static methods,To initialize instance variables,To inherit methods,To loop through objects,2,4,objects
+6,Which method adds an element to an ArrayList?,add(),append(),push(),insert(),1,2,collections
+7,What does the `ArrayList` method `get(int index)` return?,The element at index,The size of the list,The index of the element,Null,1,3,collections
+8,What is the result of: `String[] arr = {"a", "b", "c"}; System.out.println(arr[1]);`?,a,b,c,Error,2,3,collections
+9,Which control structure skips to the next iteration of a loop?,break,continue,return,throw,2,3,control structures
+10,What is the correct way to declare an ArrayList of Strings?,ArrayList<String> list = new ArrayList<>();,List<String> list = new ArrayList<String>();,ArrayList list = new ArrayList();,String[] list = new ArrayList();,1,4,collections
