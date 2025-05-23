@@ -138,10 +138,14 @@ function showResults() {
   document.getElementById('result').classList.remove('hidden');
   document.getElementById('score').innerText = `Your score: ${score} / ${totalQuestions * 50}`;
   let recommendation = '';
-  if (testType === 'programming') {
+  if (testType === 'ib_computer_science') {
     recommendation = score >= totalQuestions * 40
-      ? 'You are well-prepared for the advanced programming class!'
-      : 'You may benefit from reviewing control structures, objects, and collections before the advanced class.';
+      ? 'You are well-prepared for IB Computer Science (SL/HL)!'
+      : 'You may benefit from reviewing computational thinking, algorithms, and object-oriented programming for IB Computer Science.';
+  } else if (testType === 'ap_computer_science') {
+    recommendation = score >= totalQuestions * 40
+      ? 'You are well-prepared for the AP Computer Science A exam!'
+      : 'You may benefit from reviewing variables, control structures, and object-oriented programming for AP Computer Science A.';
   } else if (testType === 'yearbook' || testType === 'photography' || testType === 'robotics') {
     const topTopics = getTopTopics();
     recommendation = score >= totalQuestions * 40
@@ -165,7 +169,9 @@ function getTopTopics() {
 
 // Print report
 document.getElementById('print-btn').addEventListener('click', () => {
-  const testName = testType.charAt(0).toUpperCase() + testType.slice(1);
+  const testName = testType === 'ib_computer_science' ? 'IB Computer Science' :
+                   testType === 'ap_computer_science' ? 'AP Computer Science A' :
+                   testType.charAt(0).toUpperCase() + testType.slice(1);
   let recommendation = document.getElementById('recommendation').innerText;
   const reportWindow = window.open('', '_blank');
   reportWindow.document.write(`

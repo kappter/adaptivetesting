@@ -1,0 +1,11 @@
+id,question,option1,option2,option3,option4,correct,difficulty,topic
+1,What is the output of: `int x = 7; if (x % 2 == 0) { System.out.println("Even"); } else { System.out.println("Odd"); }`?,Even,Odd,7,Error,2,2,control structures
+2,Which Java structure is best for storing a collection of unique elements?,Array,ArrayList,HashSet,LinkedList,3,3,collections
+3,What is the purpose of the `abstract` keyword in Java?,To create a final class,To define a method without implementation,To prevent instantiation,To allow multiple inheritance,2,4,objects
+4,What does this pseudocode do: `WHILE (n > 1) n = n / 2`?,Computes factorial,Finds square root,Performs binary search,Reduces n to 1,4,3,algorithms
+5,What is the output of: `String str = "IB"; System.out.println(str.substring(1));`?,I,B,IB,Error,2,3,objects
+6,Which loop is best for iterating a fixed number of times in Java?,while,do-while,for,enhanced for,3,2,control structures
+7,What does the `try-catch` block handle in Java?,Syntax errors,Runtime exceptions,Compilation errors,Logical errors,2,3,control structures
+8,How do you read a text file in Java using BufferedReader?,FileReader fr = new FileReader("file.txt");,Scanner sc = new Scanner("file.txt");,BufferedReader br = new BufferedReader(new FileReader("file.txt"));,InputStream is = new FileInputStream("file.txt");,3,4,file handling
+9,What is computational thinking in IB Computer Science?,Writing code,Decomposing problems into smaller parts,Debugging errors,Creating user interfaces,2,3,computational thinking
+10,What is the correct way to declare a class implementing an interface?,class MyClass implements MyInterface {},class MyClass extends MyInterface {},interface MyClass implements MyInterface {},class MyClass instanceof MyInterface {},1,4,objects

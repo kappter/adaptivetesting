@@ -1,0 +1,11 @@
+id,question,option1,option2,option3,option4,correct,difficulty,topic
+1,What is the output of: `int x = 5; if (x > 3) { System.out.println(x); } else { System.out.println(-x); }`?,5,-5,3,Error,1,2,control structures
+2,Which loop is best for iterating over an ArrayList?,for loop,while loop,do-while loop,enhanced for loop,4,3,control structures
+3,What is the output of: `int i = 1; while (i <= 3) { System.out.print(i); i++; }`?,123,321,12,Error,1,3,control structures
+4,How do you access an instance variable in a Java class?,this.variable,variable(),Class.variable,super.variable,1,2,objects
+5,What is the purpose of a constructor in a Java class?,To define static methods,To initialize instance variables,To inherit methods,To loop through objects,2,4,objects
+6,Which method adds an element to an ArrayList?,add(),append(),push(),insert(),1,2,collections
+7,What does `ArrayList.get(int index)` return?,The element at index,The size of the list,The index of the element,Null,1,3,collections
+8,What is the result of: `String[] arr = {"a", "b", "c"}; System.out.println(arr[1]);`?,a,b,c,Error,2,3,collections
+9,Which control structure skips to the next iteration of a loop?,break,continue,return,throw,2,3,control structures
+10,What is the output of: `public class Test { public static void main(String[] args) { int x = 2; x *= 3; System.out.println(x); } }`?,2,3,6,Error,3,3,control structures
