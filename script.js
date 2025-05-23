@@ -57,7 +57,7 @@ function loadTest() {
 // Parse CSV
 function parseCSV(data) {
   const lines = data.trim().split('\n').slice(1); // Skip header
-  return lines.map(line => {
+  const parsedQuestions = lines.map(line => {
     const [id, question, opt1, opt2, opt3, opt4, correct, difficulty, topic] = line.split(',').map(item => item.trim());
     return {
       id: parseInt(id),
@@ -68,6 +68,13 @@ function parseCSV(data) {
       topic
     };
   });
+  // Verify unique IDs
+  const ids = parsedQuestions.map(q => q.id);
+  const uniqueIds = new Set(ids);
+  if (uniqueIds.size !== ids.length) {
+    console.warn('Duplicate question IDs detected in CSV');
+  }
+  return parsedQuestions;
 }
 
 // Start test
@@ -83,13 +90,17 @@ function startTest() {
 
 // Select next question
 function selectQuestion(currentDifficulty) {
-  // Filter out questions already asked
-  const unanswered = questions.filter(q => !questionHistory.includes(q.id));
+  const currentQuestionId = questions[currentQuestionIndex]?.id;
+  // Filter out questions already asked and the current question
+  const unanswered = questions.filter(q => !questionHistory.includes(q.id) && q.id !== currentQuestionId);
+  console.log(`Selecting question. Unanswered: ${unanswered.length}, History: ${questionHistory}, Current ID: ${currentQuestionId}`);
+  
   if (unanswered.length === 0) {
     console.warn('No unanswered questions remain. Ending test early.');
     showResults();
     return -1;
   }
+  
   // Select questions matching current difficulty
   let candidates = unanswered.filter(q => q.difficulty === currentDifficulty);
   if (!candidates.length) {
@@ -100,18 +111,20 @@ function selectQuestion(currentDifficulty) {
     // Final fallback: any unanswered question
     candidates = unanswered;
   }
+  
   // Randomly select a candidate
   const randomIndex = Math.floor(Math.random() * candidates.length);
   const selectedQuestion = candidates[randomIndex];
   const selectedIndex = questions.findIndex(q => q.id === selectedQuestion.id);
   
-  // Debug: Warn if selected question was already asked
-  if (questionHistory.includes(selectedQuestion.id)) {
-    console.warn(`Duplicate question detected: ID ${selectedQuestion.id}`);
-    showResults(); // End test to avoid infinite loop
+  // Safeguard: Ensure selected question is not in history
+  if (questionHistory.includes(selectedQuestion.id) || selectedQuestion.id === currentQuestionId) {
+    console.error(`Attempted to select duplicate question: ID ${selectedQuestion.id}`);
+    showResults();
     return -1;
   }
   
+  console.log(`Selected question ID: ${selectedQuestion.id}`);
   return selectedIndex;
 }
 
@@ -145,6 +158,9 @@ function selectOption(selected) {
   options.forEach(opt => opt.classList.remove('selected'));
   options[selected - 1].classList.add('selected');
   feedback.classList.remove('hidden');
+  // Add current question to history before selecting next
+  questionHistory.push(q.id);
+  console.log(`Answered question ID: ${q.id}, History: ${questionHistory}`);
   if (selected === q.correct) {
     feedback.innerText = 'Correct!';
     feedback.className = 'mb-4 text-light correct';
@@ -156,7 +172,6 @@ function selectOption(selected) {
     options[selected - 1].classList.add('incorrect');
     currentQuestionIndex = selectQuestion(q.difficulty - 1);
   }
-  questionHistory.push(q.id);
   options.forEach(opt => opt.onclick = null); // Disable further clicks
   document.getElementById('next-btn').classList.remove('hidden');
 }
