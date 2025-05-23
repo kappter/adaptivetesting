@@ -70,6 +70,10 @@ function startTest() {
 // Select next question
 function selectQuestion(currentDifficulty) {
   const unanswered = questions.filter(q => !questionHistory.includes(q.id));
+  if (unanswered.length === 0) {
+    showResults(); // End early if no questions remain
+    return -1;
+  }
   let candidates = unanswered.filter(q => q.difficulty === currentDifficulty);
   if (!candidates.length) {
     candidates = unanswered.filter(q => Math.abs(q.difficulty - currentDifficulty) <= 1);
@@ -81,7 +85,7 @@ function selectQuestion(currentDifficulty) {
 
 // Display question
 function displayQuestion() {
-  if (questionHistory.length >= totalQuestions) {
+  if (questionHistory.length >= totalQuestions || currentQuestionIndex === -1) {
     showResults();
     return;
   }
@@ -113,7 +117,7 @@ function selectOption(selected) {
     currentQuestionIndex = selectQuestion(q.difficulty + 1);
   } else {
     feedback.innerText = `Incorrect. Correct answer: ${q.options[q.correct - 1]}`;
-    feedback.className = 'mb-4 text-red-600';
+    feedback.className = 'mb-4 text-green-600';
     options[selected - 1].classList.add('incorrect');
     currentQuestionIndex = selectQuestion(q.difficulty - 1);
   }
