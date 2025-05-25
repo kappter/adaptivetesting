@@ -1,6 +1,6 @@
 # Adaptive Skills Test Platform
 
-This platform provides adaptive tests to evaluate skills for various disciplines, helping students determine their suitability for specific roles or classes. It includes tests for IB Computer Science, AP Computer Science A, Yearbook, DSLR Photography, and Basic Robotics, hosted on GitHub Pages using HTML, CSS, and JavaScript with CSV-based question data.
+[This platform](https://kappter.github.io/adaptivetesting/) provides adaptive tests to evaluate skills for various disciplines, helping students determine their suitability for specific roles or classes. It includes tests for IB Computer Science, AP Computer Science A, Yearbook, DSLR Photography, and Basic Robotics, hosted on GitHub Pages using HTML, CSS, and JavaScript with CSV-based question data.
 
 ## Features
 - **Student Name Input**: Enter a name before starting, included in results and reports.
