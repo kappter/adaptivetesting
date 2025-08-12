@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -56,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .app {
@@ -110,6 +71,12 @@
             cursor: no-drop;
         }
 
+        .btn.selected {
+            background: #28a745;
+            color: #fff;
+            border-color: #28a745;
+        }
+
         #next-btn {
             background: #001e4d;
             color: #fff;
@@ -135,6 +102,29 @@
         #result p {
             margin-top: 10px;
         }
+
+        #report {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #report h3 {
+            color: #001e4d;
+            margin-bottom: 10px;
+        }
+
+        #report ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #report li {
+            margin: 5px 0;
+        }
+
+        #report .scores {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -150,6 +140,14 @@
         <div id="result">
             <h2>Your Recommended Role: <span id="recommended-role"></span></h2>
             <p id="role-description"></p>
+            <div id="report">
+                <h3>Your Selections</h3>
+                <ul id="selections"></ul>
+                <div class="scores">
+                    <h3>Role Scores</h3>
+                    <p id="scores"></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -209,6 +207,7 @@
             journalist: 0,
             page_finisher: 0
         };
+        let userSelections = []; // Store user selections for report
 
         const questionElement = document.getElementById("question");
         const answerButtonsElement = document.getElementById("answer-buttons");
@@ -216,8 +215,10 @@
         const resultElement = document.getElementById("result");
         const recommendedRoleElement = document.getElementById("recommended-role");
         const roleDescriptionElement = document.getElementById("role-description");
+        const selectionsElement = document.getElementById("selections");
+        const scoresElement = document.getElementById("scores");
 
-        // Load questions from CSV (assume questions.csv is in the same directory)
+        // Load questions from CSV
         fetch('questions.csv')
             .then(response => response.text())
             .then(csvText => {
@@ -241,6 +242,7 @@
         function startQuiz() {
             currentQuestionIndex = 0;
             scores = { leadership: 0, photography: 0, design: 0, sidebar: 0, journalist: 0, page_finisher: 0 };
+            userSelections = [];
             nextButton.innerText = "Next";
             resultElement.style.display = "none";
             showQuestion();
@@ -271,7 +273,15 @@
             const selectedBtn = e.target;
             const group = selectedBtn.dataset.group;
             scores[group]++;
+            userSelections.push({
+                question: questions[currentQuestionIndex].question,
+                answer: selectedBtn.innerText,
+                group: group
+            });
             Array.from(answerButtonsElement.children).forEach(button => {
+                if (button === selectedBtn) {
+                    button.classList.add("selected");
+                }
                 button.disabled = true;
             });
             nextButton.style.display = "block";
@@ -290,6 +300,18 @@
             }
             recommendedRoleElement.innerText = recommendedRole.replace('_', ' ').toUpperCase();
             roleDescriptionElement.innerText = roleDescriptions[recommendedRole];
+            
+            // Generate report
+            selectionsElement.innerHTML = "";
+            userSelections.forEach((selection, index) => {
+                const li = document.createElement("li");
+                li.innerText = `${index + 1}. ${selection.question}: ${selection.answer} (${selection.group.replace('_', ' ')})`;
+                selectionsElement.appendChild(li);
+            });
+            scoresElement.innerText = Object.entries(scores)
+                .map(([role, score]) => `${role.replace('_', ' ')}: ${score}`)
+                .join(", ");
+            
             resultElement.style.display = "block";
             nextButton.innerText = "Restart";
             nextButton.style.display = "block";
