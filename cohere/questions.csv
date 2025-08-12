@@ -1,0 +1,4 @@
+id,question,category,type,options,correct_option
+1,"What do you enjoy most?",Leadership,multiple-choice,"Leading a team,Taking photos,Designing layouts,Writing articles,Editing content",1
+2,"How do you prefer to work?",Photography,multiple-choice,"Independently,In a group,With creative freedom,With strict guidelines,With attention to detail",3
+3,"What motivates you?",Design,multiple-choice,"Achieving goals,Capturing moments,Creating visuals,Telling stories,Perfecting details",3
