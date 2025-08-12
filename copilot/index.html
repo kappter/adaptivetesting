@@ -1,0 +1,32 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yearbook Role Assessment</title>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+  <div class="container">
+    <h1>Find Your Yearbook Role</h1>
+    <div id="quiz-container">
+      <div id="question-box"></div>
+      <div id="options">
+        <button onclick="submitAnswer(1)">Not Interested</button>
+        <button onclick="submitAnswer(2)">Somewhat Interested</button>
+        <button onclick="submitAnswer(3)">Very Interested</button>
+      </div>
+    </div>
+    <div id="result-box" class="hidden">
+      <h2>Your Recommended Role:</h2>
+      <p id="role-name"></p>
+      <p id="role-description"></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="papaparse.min.js"></script>
+</body>
+</html>
