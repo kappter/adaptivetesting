@@ -125,6 +125,10 @@
         #report .scores {
             margin-top: 20px;
         }
+
+        #report .tasks {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -147,12 +151,16 @@
                     <h3>Role Scores</h3>
                     <p id="scores"></p>
                 </div>
+                <div class="tasks">
+                    <h3>Common Daily Tasks for Your Role</h3>
+                    <ul id="tasks"></ul>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // CSV Parsing Function (from Stack Overflow)
+        // CSV Parsing Function
         function CSVToArray(strData, strDelimiter) {
             strDelimiter = (strDelimiter || ",");
             var objPattern = new RegExp(
@@ -197,6 +205,76 @@
             page_finisher: "Page finishers are meticulous, patient, and have a sharp eye for errors. They excel in proofreading, ensuring consistency, and making final adjustments. They are organized and calm under pressure to meet print deadlines."
         };
 
+        // Common Daily Tasks for Each Role
+        const roleTasks = {
+            leadership: [
+                "Assign sections to staff members",
+                "Coordinate with school administration for approvals",
+                "Schedule weekly team meetings",
+                "Track assignment completions",
+                "Resolve conflicts between staff",
+                "Develop a budget for yearbook production",
+                "Prioritize events for coverage",
+                "Facilitate brainstorming sessions",
+                "Monitor supply inventory"
+            ],
+            photography: [
+                "Scout locations for group photos",
+                "Set up camera equipment before events",
+                "Capture candid shots at school assemblies",
+                "Pose students for club portraits",
+                "Adjust lighting for indoor sports photos",
+                "Take action shots during games",
+                "Import photos from camera to computer",
+                "Sort photos into folders by event",
+                "Document school trips or field days"
+            ],
+            design: [
+                "Arrange elements on a page in software",
+                "Select templates for section layouts",
+                "Place photos into layout grids",
+                "Adjust margins and bleeds for printing",
+                "Incorporate theme elements into designs",
+                "Test layout flow for readability",
+                "Export layouts for proofing",
+                "Collaborate on layout revisions",
+                "Create cover design mockups"
+            ],
+            sidebar: [
+                "Develop sidebar content on trends",
+                "Write quick facts lists for sidebars",
+                "Design polls for sidebar inclusion",
+                "Compile student quotes for sidebars",
+                "Create infographics text for sidebars",
+                "Research statistics for sports sidebars",
+                "Format sidebar text for visual appeal",
+                "Integrate sidebars into main copy",
+                "Update sidebars with late-breaking info"
+            ],
+            journalist: [
+                "Schedule interviews with students",
+                "Prepare question lists for interviews",
+                "Conduct in-person interviews at lunch",
+                "Transcribe interview notes",
+                "Write main article copy for sports section",
+                "Draft feature stories on student achievements",
+                "Compose summaries of school events",
+                "Revise copy for word count limits",
+                "Follow up on missed interview details"
+            ],
+            page_finisher: [
+                "Read copy for spelling errors",
+                "Check photo credits and attributions",
+                "Verify names in captions and lists",
+                "Mark up layouts for corrections",
+                "Cross-check facts in articles",
+                "Review grammar in sidebars",
+                "Compare digital vs. printed proofs",
+                "Make final edits before submission",
+                "Archive proofed files"
+            ]
+        };
+
         let questions = [];
         let currentQuestionIndex = 0;
         let scores = {
@@ -207,7 +285,7 @@
             journalist: 0,
             page_finisher: 0
         };
-        let userSelections = []; // Store user selections for report
+        let userSelections = [];
 
         const questionElement = document.getElementById("question");
         const answerButtonsElement = document.getElementById("answer-buttons");
@@ -217,13 +295,13 @@
         const roleDescriptionElement = document.getElementById("role-description");
         const selectionsElement = document.getElementById("selections");
         const scoresElement = document.getElementById("scores");
+        const tasksElement = document.getElementById("tasks");
 
         // Load questions from CSV
         fetch('questions.csv')
             .then(response => response.text())
             .then(csvText => {
                 const parsed = CSVToArray(csvText);
-                // Skip header row
                 questions = parsed.slice(1).map(row => ({
                     question: row[0],
                     answers: [
@@ -248,11 +326,22 @@
             showQuestion();
         }
 
+        // Fisher-Yates shuffle
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         function showQuestion() {
             resetState();
             let currentQuestion = questions[currentQuestionIndex];
             questionElement.innerText = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
-            currentQuestion.answers.forEach(answer => {
+            // Randomize answers
+            const shuffledAnswers = shuffle([...currentQuestion.answers]);
+            shuffledAnswers.forEach(answer => {
                 const button = document.createElement("button");
                 button.innerText = answer.text;
                 button.classList.add("btn");
@@ -301,16 +390,26 @@
             recommendedRoleElement.innerText = recommendedRole.replace('_', ' ').toUpperCase();
             roleDescriptionElement.innerText = roleDescriptions[recommendedRole];
             
-            // Generate report
+            // Generate selections report
             selectionsElement.innerHTML = "";
             userSelections.forEach((selection, index) => {
                 const li = document.createElement("li");
                 li.innerText = `${index + 1}. ${selection.question}: ${selection.answer} (${selection.group.replace('_', ' ')})`;
                 selectionsElement.appendChild(li);
             });
+            
+            // Generate scores report
             scoresElement.innerText = Object.entries(scores)
                 .map(([role, score]) => `${role.replace('_', ' ')}: ${score}`)
                 .join(", ");
+            
+            // Generate tasks report
+            tasksElement.innerHTML = "";
+            roleTasks[recommendedRole].forEach(task => {
+                const li = document.createElement("li");
+                li.innerText = task;
+                tasksElement.appendChild(li);
+            });
             
             resultElement.style.display = "block";
             nextButton.innerText = "Restart";
