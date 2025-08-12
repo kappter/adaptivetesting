@@ -1,1 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearbook Team Role Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .question-container {
+            display: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            transform: translateY(-2px);
+        }
+
+        .option-text {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .start-screen, .results-screen {
+            display: block;
+        }
+
+        .start-screen.hidden, .results-screen.hidden {
+            display: none;
+        }
+
+        .start-btn, .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .start-btn:hover, .restart-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .results-screen {
+            text-align: center;
+        }
+
+        .role-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .role-title {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .role-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .traits {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .traits h4 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .trait-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .trait-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .question-counter {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .intro-text {
+            text-align: left;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <h1>🎓 Yearbook Team Assessment</h1>
+            <p class="subtitle">Discover your perfect role on the yearbook team!</p>
+            
+            <div class="intro-text">
+                <p>This adaptive assessment will help identify which yearbook role best matches your skills, interests, and working style. You'll answer about 20 questions that will analyze your preferences for:</p>
+                <br>
+                <ul style="text-align: left; margin-left: 40px;">
+                    <li><strong>Leadership:</strong> Coordinating teams and managing projects</li>
+                    <li><strong>Photography:</strong> Capturing moments and visual storytelling</li>
+                    <li><strong>Design:</strong> Layout creation and visual aesthetics</li>
+                    <li><strong>Sidebar:</strong> Research and supplementary content creation</li>
+                    <li><strong>Journalist:</strong> Writing and interviewing</li>
+                    <li><strong>Page Finisher:</strong> Detail-oriented editing and quality control</li>
+                </ul>
+                <br>
+                <p>The assessment adapts based on your responses, so answer honestly to get the most accurate results!</p>
+            </div>
+            
+            <button class="start-btn" onclick="startAssessment()">Begin Assessment</button>
+        </div>
+
+        <!-- Assessment Screen -->
+        <div class="assessment-screen" id="assessmentScreen" style="display: none;">
+            <div class="question-counter" id="questionCounter">Question 1 of 20</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="question-container active" id="questionContainer">
+                <div class="question" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen hidden" id="resultsScreen">
+            <h1>🎯 Your Perfect Role</h1>
+            <div class="role-result" id="roleResult"></div>
+            <button class="restart-btn" onclick="restartAssessment()">Take Assessment Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Questions for adaptive assessment
+        const questions = [
+            {
+                text: "When working on a group project, what role do you naturally take?",
+                options: [
+                    { text: "I coordinate tasks and keep everyone on track", scores: { leadership: 3, pageFinisher: 1 } },
+                    { text: "I focus on making things look visually appealing", scores: { design: 3, photography: 1 } },
+                    { text: "I research background information and details", scores: { sidebar: 3, journalist: 2 } },
+                    { text: "I write and communicate ideas clearly", scores: { journalist: 3, sidebar: 1 } }
+                ]
+            },
+            {
+                text: "What type of tasks do you find most energizing?",
+                options: [
+                    { text: "Planning and organizing complex projects", scores: { leadership: 3, pageFinisher: 2 } },
+                    { text: "Creating visual content and layouts", scores: { design: 3, photography: 2 } },
+                    { text: "Taking photos and capturing moments", scores: { photography: 3, design: 1 } },
+                    { text: "Writing stories and conducting interviews", scores: { journalist: 3, sidebar: 1 } }
+                ]
+            },
+            {
+                text: "How do you prefer to work on deadlines?",
+                options: [
+                    { text: "I create detailed timelines and stick to them", scores: { leadership: 2, pageFinisher: 3 } },
+                    { text: "I work in creative bursts when inspired", scores: { design: 2, photography: 2, journalist: 1 } },
+                    { text: "I work steadily and check my work multiple times", scores: { pageFinisher: 3, sidebar: 2 } },
+                    { text: "I thrive under pressure and last-minute challenges", scores: { journalist: 2, photography: 2, leadership: 1 } }
+                ]
+            },
+            {
+                text: "What draws you most to visual storytelling?",
+                options: [
+                    { text: "Capturing authentic, candid moments", scores: { photography: 3, journalist: 1 } },
+                    { text: "Creating polished, professional layouts", scores: { design: 3, pageFinisher: 1 } },
+                    { text: "Finding the perfect words to accompany images", scores: { journalist: 2, sidebar: 2 } },
+                    { text: "Ensuring everything flows together seamlessly", scores: { pageFinisher: 3, design: 2 } }
+                ]
+            },
+            {
+                text: "When faced with a challenging task, what's your approach?",
+                options: [
+                    { text: "Break it down into manageable steps for the team", scores: { leadership: 3, pageFinisher: 1 } },
+                    { text: "Dive in and experiment until I find a solution", scores: { design: 2, photography: 2 } },
+                    { text: "Research best practices and gather information", scores: { sidebar: 3, journalist: 2 } },
+                    { text: "Focus on perfecting every detail", scores: { pageFinisher: 3, design: 1 } }
+                ]
+            },
+            {
+                text: "What aspect of yearbook creation excites you most?",
+                options: [
+                    { text: "Seeing the whole project come together", scores: { leadership: 3, pageFinisher: 2 } },
+                    { text: "Capturing memories that will last forever", scores: { photography: 3, journalist: 1 } },
+                    { text: "Making pages that people love to look at", scores: { design: 3, photography: 1 } },
+                    { text: "Telling the stories behind the photos", scores: { journalist: 3, sidebar: 2 } }
+                ]
+            },
+            {
+                text: "How do you handle constructive criticism?",
+                options: [
+                    { text: "I use it to improve the whole team's performance", scores: { leadership: 3, pageFinisher: 1 } },
+                    { text: "I appreciate feedback that helps my creative vision", scores: { design: 2, photography: 2 } },
+                    { text: "I see it as a chance to dig deeper and be more accurate", scores: { sidebar: 3, journalist: 2, pageFinisher: 2 } },
+                    { text: "I welcome it - it helps me catch mistakes I missed", scores: { pageFinisher: 3, sidebar: 1 } }
+                ]
+            },
+            {
+                text: "What's your ideal working environment?",
+                options: [
+                    { text: "Leading meetings and coordinating with others", scores: { leadership: 3 } },
+                    { text: "Out and about, capturing events as they happen", scores: { photography: 3, journalist: 2 } },
+                    { text: "Quiet space where I can focus on details", scores: { pageFinisher: 3, sidebar: 2, design: 1 } },
+                    { text: "Flexible - sometimes collaborating, sometimes solo", scores: { design: 2, journalist: 2, sidebar: 1 } }
+                ]
+            },
+            {
+                text: "Which skill would you most like to develop further?",
+                options: [
+                    { text: "Project management and team leadership", scores: { leadership: 3 } },
+                    { text: "Advanced photography techniques", scores: { photography: 3 } },
+                    { text: "Graphic design and layout software", scores: { design: 3 } },
+                    { text: "Research and fact-checking methods", scores: { sidebar: 3, pageFinisher: 2 } }
+                ]
+            },
+            {
+                text: "How do you prefer to contribute to creative decisions?",
+                options: [
+                    { text: "I help the team reach consensus and move forward", scores: { leadership: 3, pageFinisher: 1 } },
+                    { text: "I offer visual concepts and design ideas", scores: { design: 3, photography: 2 } },
+                    { text: "I provide research and background context", scores: { sidebar: 3, journalist: 1 } },
+                    { text: "I ensure decisions align with our quality standards", scores: { pageFinisher: 3, leadership: 1 } }
+                ]
+            }
+        ];
+
+        // Additional adaptive questions based on responses
+        const adaptiveQuestions = {
+            leadership: [
+                {
+                    text: "When leading a team, what's most important to you?",
+                    options: [
+                        { text: "Making sure everyone knows their role and deadlines", scores: { leadership: 3, pageFinisher: 1 } },
+                        { text: "Creating an environment where creativity can flourish", scores: { leadership: 2, design: 1, photography: 1 } },
+                        { text: "Ensuring we produce high-quality, accurate work", scores: { leadership: 2, pageFinisher: 2 } },
+                        { text: "Keeping morale high and everyone motivated", scores: { leadership: 3 } }
+                    ]
+                }
+            ],
+            photography: [
+                {
+                    text: "What type of photography appeals to you most?",
+                    options: [
+                        { text: "Candid shots that capture real emotions", scores: { photography: 3, journalist: 1 } },
+                        { text: "Carefully composed portraits and group shots", scores: { photography: 2, design: 1 } },
+                        { text: "Action shots during sports and events", scores: { photography: 3 } },
+                        { text: "Detail shots that support written stories", scores: { photography: 2, journalist: 2 } }
+                    ]
+                }
+            ],
+            design: [
+                {
+                    text: "When designing a page layout, what guides your decisions?",
+                    options: [
+                        { text: "Creating visual hierarchy and flow", scores: { design: 3 } },
+                        { text: "Making sure photos are showcased perfectly", scores: { design: 2, photography: 1 } },
+                        { text: "Ensuring text is readable and well-organized", scores: { design: 2, pageFinisher: 2 } },
+                        { text: "Balancing creativity with consistency", scores: { design: 3, pageFinisher: 1 } }
+                    ]
+                }
+            ],
+            journalist: [
+                {
+                    text: "What aspect of journalism excites you most?",
+                    options: [
+                        { text: "Interviewing people and hearing their stories", scores: { journalist: 3 } },
+                        { text: "Writing compelling feature articles", scores: { journalist: 3, sidebar: 1 } },
+                        { text: "Researching and fact-checking information", scores: { journalist: 2, sidebar: 2 } },
+                        { text: "Covering live events as they happen", scores: { journalist: 3, photography: 1 } }
+                    ]
+                }
+            ],
+            sidebar: [
+                {
+                    text: "When creating supplementary content, you focus on:",
+                    options: [
+                        { text: "Finding interesting statistics and data", scores: { sidebar: 3 } },
+                        { text: "Creating fun, engaging quick facts", scores: { sidebar: 3, journalist: 1 } },
+                        { text: "Ensuring all information is accurate and verified", scores: { sidebar: 2, pageFinisher: 2 } },
+                        { text: "Making content that enhances the main stories", scores: { sidebar: 3, design: 1 } }
+                    ]
+                }
+            ],
+            pageFinisher: [
+                {
+                    text: "What type of details do you naturally notice?",
+                    options: [
+                        { text: "Spelling and grammar errors in text", scores: { pageFinisher: 3, sidebar: 1 } },
+                        { text: "Inconsistencies in design and layout", scores: { pageFinisher: 2, design: 2 } },
+                        { text: "Missing photo credits and captions", scores: { pageFinisher: 3, journalist: 1 } },
+                        { text: "Overall quality and professional appearance", scores: { pageFinisher: 3, leadership: 1 } }
+                    ]
+                }
+            ]
+        };
+
+        // Role descriptions
+        const roleDescriptions = {
+            leadership: {
+                title: "Leadership & Project Management",
+                description: "You're a natural coordinator who excels at seeing the big picture while keeping everyone organized and on track. You thrive on managing timelines, facilitating communication, and ensuring the team works efficiently toward shared goals.",
+                traits: [
+                    "Strong organizational skills",
+                    "Excellent communication abilities", 
+                    "Natural problem-solving mindset",
+                    "Comfortable making decisions",
+                    "Good at delegating tasks",
+                    "Thrives under pressure",
+                    "Values efficiency and results",
+                    "Enjoys mentoring others"
+                ],
+                tasks: "You'll handle planning meetings, creating timelines, assigning roles, coordinating with administration, managing budgets, and ensuring deadlines are met."
+            },
+            photography: {
+                title: "Photography & Visual Documentation",
+                description: "You have an eye for capturing meaningful moments and understand that great photos tell stories without words. You're comfortable with both technical camera work and the social aspects of photographing people and events.",
+                traits: [
+                    "Strong visual composition sense",
+                    "Comfortable with technology",
+                    "Good at reading social situations",
+                    "Patient and observant",
+                    "Enjoys being mobile and active",
+                    "Appreciates authentic moments",
+                    "Detail-oriented with equipment",
+                    "Flexible and adaptable"
+                ],
+                tasks: "You'll photograph events, take portraits, capture candid moments, manage lighting, coordinate group shots, and ensure comprehensive visual coverage of school life."
+            },
+            design: {
+                title: "Layout Design & Visual Arts",
+                description: "You combine creativity with technical skill to make information visually appealing and accessible. You understand how design elements work together to create engaging, readable pages that enhance the content.",
+                traits: [
+                    "Strong aesthetic sensibilities",
+                    "Technical software proficiency",
+                    "Understanding of visual hierarchy",
+                    "Creative problem-solving abilities",
+                    "Attention to color and typography",
+                    "Balances creativity with function",
+                    "Patient with iterative processes",
+                    "Values visual consistency"
+                ],
+                tasks: "You'll create page layouts, select fonts and colors, arrange photos and text, design covers, ensure visual consistency, and make the yearbook beautiful and readable."
+            },
+            sidebar: {
+                title: "Sidebar & Supplementary Content",
+                description: "You excel at finding the interesting details that enrich main stories. You're naturally curious, enjoy research, and have a talent for presenting information in engaging, digestible formats that add value to the primary content.",
+                traits: [
+                    "Strong research abilities",
+                    "Naturally curious mindset",
+                    "Good at synthesizing information",
+                    "Creative content presentation",
+                    "Detail-oriented research skills",
+                    "Enjoys digging deeper",
+                    "Values accuracy and context",
+                    "Skilled at finding connections"
+                ],
+                tasks: "You'll research statistics, create infographics, write fun facts, develop polls and surveys, compile quotes, and create supplementary content that enhances main articles."
+            },
+            journalist: {
+                title: "Journalism & Content Creation",
+                description: "You're a natural storyteller who enjoys connecting with people and sharing their experiences. You have strong writing skills and the confidence to ask questions, conduct interviews, and craft compelling narratives.",
+                traits: [
+                    "Excellent written communication",
+                    "Comfortable interviewing people",
+                    "Strong storytelling abilities",
+                    "Naturally inquisitive",
+                    "Good listening skills",
+                    "Meets deadlines consistently",
+                    "Enjoys human interest stories",
+                    "Values accuracy in reporting"
+                ],
+                tasks: "You'll conduct interviews, write feature articles, cover events, create compelling narratives, gather quotes, and ensure stories capture the essence of school experiences."
+            },
+            pageFinisher: {
+                title: "Editing & Quality Control",
+                description: "You have an exceptional eye for detail and take pride in producing polished, professional work. You're the final checkpoint that ensures everything meets high standards before publication, catching errors others might miss.",
+                traits: [
+                    "Exceptional attention to detail",
+                    "Strong grammar and spelling skills",
+                    "Quality-focused mindset",
+                    "Patient with repetitive tasks",
+                    "Systematic approach to work",
+                    "Takes pride in accuracy",
+                    "Values consistency",
+                    "Comfortable with deadlines"
+                ],
+                tasks: "You'll proofread all content, check photo credits, verify names and facts, ensure consistency across pages, coordinate final reviews, and prepare materials for printing."
+            }
+        };
+
+        let currentQuestion = 0;
+        let scores = {
+            leadership: 0,
+            photography: 0,
+            design: 0,
+            sidebar: 0,
+            journalist: 0,
+            pageFinisher: 0
+        };
+        let questionQueue = [];
+        let answeredQuestions = [];
+
+        function startAssessment() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('assessmentScreen').style.display = 'block';
+            
+            // Initialize question queue with base questions
+            questionQueue = [...questions];
+            currentQuestion = 0;
+            scores = {
+                leadership: 0,
+                photography: 0,
+                design: 0,
+                sidebar: 0,
+                journalist: 0,
+                pageFinisher: 0
+            };
+            answeredQuestions = [];
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestion >= 20 || questionQueue.length === 0) {
+                showResults();
+                return;
+            }
+
+            const question = questionQueue[currentQuestion];
+            const progress = ((currentQuestion) / 20) * 100;
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of 20`;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('questionText').textContent = question.text;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `<div class="option-text">${option.text}</div>`;
+                optionDiv.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        function selectOption(optionIndex) {
+            const question = questionQueue[currentQuestion];
+            const selectedOption = question.options[optionIndex];
+            
+            // Update scores
+            Object.keys(selectedOption.scores).forEach(role => {
+                scores[role] += selectedOption.scores[role];
+            });
+
+            // Visual feedback
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+            
+            answeredQuestions.push({
+                question: question.text,
+                answer: selectedOption.text,
+                scores: selectedOption.scores
+            });
+
+            // Add adaptive questions if this is question 10
+            if (currentQuestion === 9) {
+                addAdaptiveQuestions();
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                showQuestion();
+            }, 1000);
+        }
+
+        function addAdaptiveQuestions() {
+            // Find top 2 scoring roles
+            const sortedRoles = Object.entries(scores)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 2);
+
+            // Add adaptive questions for top roles
+            sortedRoles.forEach(([role, score]) => {
+                if (adaptiveQuestions[role] && score > 0) {
+                    questionQueue.push(...adaptiveQuestions[role]);
+                }
+            });
+        }
+
+        function showResults() {
+            // Find the highest scoring role
+            const topRole = Object.entries(scores)
+                .sort(([,a], [,b]) => b - a)[0];
+
+            const roleName = topRole[0];
+            const roleData = roleDescriptions[roleName];
+
+            document.getElementById('assessmentScreen').style.display = 'none';
+            document.getElementById('resultsScreen').classList.remove('hidden');
+
+            const resultHTML = `
+                <div class="role-title">${roleData.title}</div>
+                <div class="role-description">${roleData.description}</div>
+                <div style="text-align: left; margin: 20px 0;">
+                    <strong>Your key tasks will include:</strong><br>
+                    ${roleData.tasks}
+                </div>
+                <div class="traits">
+                    <h4>Success Traits for This Role:</h4>
+                    <div class="trait-list">
+                        ${roleData.traits.map(trait => `<div class="trait-item">✓ ${trait}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('roleResult').innerHTML = resultHTML;
+        }
+
+        function restartAssessment() {
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('startScreen').style.display = 'block';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Assessment is ready to start
+        });
+    </script>
+</body>
+</html>
