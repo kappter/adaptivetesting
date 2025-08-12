@@ -1,8 +1,129 @@
 {
-  "questions": [],
+  "questions": [
+    {
+      "task": "Brainstorming yearbook theme ideas",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Creating a yearbook timeline with deadlines",
+      "group": "planning",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Assigning sections to staff members",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Developing a budget for yearbook production",
+      "group": "planning",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Selecting fonts and color schemes for the theme",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Mapping out page layouts in a rough sketch",
+      "group": "planning",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Coordinating with school administration for approvals",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Setting up a shared drive for file organization",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Researching past yearbooks for inspiration",
+      "group": "planning",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Prioritizing events for coverage based on school calendar",
+      "group": "planning",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Scouting locations for group photos",
+      "group": "photography",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Setting up camera equipment before an event",
+      "group": "photography",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Taking candid shots at school assemblies",
+      "group": "photography",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Posing students for club portraits",
+      "group": "photography",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Adjusting lighting for indoor sports photos",
+      "group": "photography",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Capturing action shots during games",
+      "group": "photography",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Photographing faculty members in their classrooms",
+      "group": "photography",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Taking aerial shots using a drone (if available)",
+      "group": "photography",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Documenting school trips or field days",
+      "group": "photography",
+      "difficulty": "hard",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    },
+    {
+      "task": "Snapping behind-the-scenes photos of staff",
+      "group": "photography",
+      "difficulty": "easy",
+      "prompt": "How interested are you in this task? (1 = Not at all, 5 = Very interested)"
+    }
+  ],
   "roles": {
     "leadership": "Organized, decisive, and good at delegating. They thrive in planning, coordination, and team management.",
-    "photography": "Visual storytellers who enjoy capturing moments. They\u2019re patient, creative, and technically skilled.",
+    "photography": "Visual storytellers who enjoy capturing moments. They’re patient, creative, and technically skilled.",
     "design": "Detail-oriented and artistic. They enjoy layout, aesthetics, and making things visually appealing.",
     "sidebar": "Curious and trend-savvy. They like bite-sized content, infographics, and adding flair to stories.",
     "journalist": "Strong writers and communicators. They enjoy interviews, storytelling, and crafting compelling narratives.",
