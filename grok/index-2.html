@@ -1,0 +1,316 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearbook Staff Role Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #001e4d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .app {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            margin: 100px auto 0;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .app h1 {
+            font-size: 25px;
+            color: #001e4d;
+            font-weight: 600;
+            border-bottom: 1px solid #333;
+            padding-bottom: 30px;
+        }
+
+        .quiz {
+            padding: 20px 0;
+        }
+
+        .quiz h2 {
+            font-size: 18px;
+            color: #001e4d;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: #fff;
+            color: #222;
+            font-weight: 500;
+            width: 100%;
+            border: 1px solid #222;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover:not([disabled]) {
+            background: #222;
+            color: #fff;
+        }
+
+        .btn:disabled {
+            cursor: no-drop;
+        }
+
+        #next-btn {
+            background: #001e4d;
+            color: #fff;
+            font-weight: 500;
+            width: 150px;
+            border: 0;
+            padding: 10px;
+            margin: 20px auto 0;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #result {
+            display: none;
+            text-align: center;
+        }
+
+        #result h2 {
+            color: #001e4d;
+        }
+
+        #result p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <h1>Yearbook Staff Role Assessment</h1>
+        <div class="quiz">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <!-- Buttons will be dynamically added -->
+            </div>
+            <button id="next-btn">Next</button>
+        </div>
+        <div id="result">
+            <h2>Your Recommended Role: <span id="recommended-role"></span></h2>
+            <p id="role-description"></p>
+        </div>
+    </div>
+
+    <script>
+        // CSV Parsing Function (from Stack Overflow)
+        function CSVToArray(strData, strDelimiter) {
+            strDelimiter = (strDelimiter || ",");
+            var objPattern = new RegExp(
+                (
+                    "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+                    "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+                    "([^\"\\" + strDelimiter + "\\r\\n]*))"
+                ),
+                "gi"
+            );
+            var arrData = [[]];
+            var arrMatches = null;
+            while (arrMatches = objPattern.exec(strData)) {
+                var strMatchedDelimiter = arrMatches[1];
+                if (
+                    strMatchedDelimiter.length &&
+                    strMatchedDelimiter !== strDelimiter
+                ) {
+                    arrData.push([]);
+                }
+                var strMatchedValue;
+                if (arrMatches[2]) {
+                    strMatchedValue = arrMatches[2].replace(
+                        new RegExp("\"\"", "g"),
+                        "\""
+                    );
+                } else {
+                    strMatchedValue = arrMatches[3];
+                }
+                arrData[arrData.length - 1].push(strMatchedValue);
+            }
+            return (arrData);
+        }
+
+        // Role Descriptions
+        const roleDescriptions = {
+            leadership: "Individuals who excel in leadership roles are typically organized, decisive, and excellent communicators. They thrive on motivating teams, planning strategies, and overseeing projects to ensure deadlines are met. They are comfortable delegating tasks and resolving conflicts.",
+            photography: "Successful photographers are creative, patient, and technically proficient with cameras and editing software. They have a keen eye for detail and composition, enjoy capturing moments, and are adaptable to various environments and lighting conditions.",
+            design: "Designers who succeed are artistic, detail-oriented, and skilled in visual software. They have a strong sense of aesthetics, color theory, and layout principles. They enjoy creating visually appealing content and iterating on ideas based on feedback.",
+            sidebar: "People good at sidebar roles are research-savvy, concise writers who can distill information into engaging, short formats. They are curious, good at finding interesting facts, and skilled in making complex info accessible.",
+            journalist: "Journalists who thrive are curious, excellent writers and interviewers, with strong ethical standards. They are deadline-oriented, fact-checkers, and storytellers who can engage readers with compelling narratives.",
+            page_finisher: "Page finishers are meticulous, patient, and have a sharp eye for errors. They excel in proofreading, ensuring consistency, and making final adjustments. They are organized and calm under pressure to meet print deadlines."
+        };
+
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let scores = {
+            leadership: 0,
+            photography: 0,
+            design: 0,
+            sidebar: 0,
+            journalist: 0,
+            page_finisher: 0
+        };
+
+        const questionElement = document.getElementById("question");
+        const answerButtonsElement = document.getElementById("answer-buttons");
+        const nextButton = document.getElementById("next-btn");
+        const resultElement = document.getElementById("result");
+        const recommendedRoleElement = document.getElementById("recommended-role");
+        const roleDescriptionElement = document.getElementById("role-description");
+
+        // Load questions from CSV (assume questions.csv is in the same directory)
+        fetch('questions.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                const parsed = CSVToArray(csvText);
+                // Skip header row
+                questions = parsed.slice(1).map(row => ({
+                    question: row[0],
+                    answers: [
+                        { text: row[1], group: row[2] },
+                        { text: row[3], group: row[4] },
+                        { text: row[5], group: row[6] },
+                        { text: row[7], group: row[8] },
+                        { text: row[9], group: row[10] },
+                        { text: row[11], group: row[12] }
+                    ]
+                }));
+                startQuiz();
+            })
+            .catch(error => console.error('Error loading CSV:', error));
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            scores = { leadership: 0, photography: 0, design: 0, sidebar: 0, journalist: 0, page_finisher: 0 };
+            nextButton.innerText = "Next";
+            resultElement.style.display = "none";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            questionElement.innerText = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.innerText = answer.text;
+                button.classList.add("btn");
+                button.dataset.group = answer.group;
+                button.addEventListener("click", selectAnswer);
+                answerButtonsElement.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while (answerButtonsElement.firstChild) {
+                answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const group = selectedBtn.dataset.group;
+            scores[group]++;
+            Array.from(answerButtonsElement.children).forEach(button => {
+                button.disabled = true;
+            });
+            nextButton.style.display = "block";
+        }
+
+        function showResult() {
+            resetState();
+            questionElement.innerText = "Assessment Complete!";
+            let maxScore = 0;
+            let recommendedRole = "";
+            for (const [role, score] of Object.entries(scores)) {
+                if (score > maxScore) {
+                    maxScore = score;
+                    recommendedRole = role;
+                }
+            }
+            recommendedRoleElement.innerText = recommendedRole.replace('_', ' ').toUpperCase();
+            roleDescriptionElement.innerText = roleDescriptions[recommendedRole];
+            resultElement.style.display = "block";
+            nextButton.innerText = "Restart";
+            nextButton.style.display = "block";
+        }
+
+        nextButton.addEventListener("click", () => {
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton();
+            } else {
+                startQuiz();
+            }
+        });
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+    </script>
+</body>
+</html>
