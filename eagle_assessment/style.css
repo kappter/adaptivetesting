@@ -1,0 +1,38 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(to bottom right, #004C54, #A5ACAF);
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+.title {
+  color: gold;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: gold;
+  color: #004C54;
+  padding: 10px 20px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #FFD700;
+}
+
+.hidden {
+  display: none;
+}
