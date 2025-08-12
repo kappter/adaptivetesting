@@ -1,61 +1,66 @@
+document.addEventListener("DOMContentLoaded", function () {
+    let currentQuestion = 0;
+    let scores = {};
+    let tasks = [];
 
-let currentQuestion = 0;
-let scores = {};
-let questions = [];
-let roles = {};
-
-fetch('assessment_data.json')
-    .then(response => response.json())
-    .then(data => {
-        questions = data.questions;
-        roles = data.roles;
-        questions.forEach(q => {
-            if (!scores[q.group]) scores[q.group] = 0;
-        });
-        showQuestion();
-    });
-
-function showQuestion() {
-    const container = document.getElementById('question-container');
-    container.innerHTML = '';
-    if (currentQuestion >= questions.length) {
-        showResult();
-        return;
+    function loadCSV(callback) {
+        fetch('tasks.csv')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n').slice(1);
+                for (let line of lines) {
+                    const parts = line.split(',');
+                    if (parts.length >= 4) {
+                        tasks.push({
+                            group: parts[0].trim(),
+                            task: parts[1].trim(),
+                            difficulty: parts[2].trim(),
+                            duration: parts[3].trim()
+                        });
+                    }
+                }
+                callback();
+            });
     }
-    const q = questions[currentQuestion];
-    const questionEl = document.createElement('div');
-    questionEl.innerHTML = `
-        <p><strong>Task:</strong> ${q.task}</p>
-        <p><strong>Group:</strong> ${q.group}</p>
-        <p><strong>Difficulty:</strong> ${q.difficulty}</p>
-        <p><strong>Estimated Time:</strong> ${q.estimated_minutes} minutes</p>
-        <label>How interested are you in this task?</label><br>
-        <select id="interest">
-            <option value="0">Not at all</option>
-            <option value="1">Somewhat</option>
-            <option value="2">Very interested</option>
-        </select>
-    `;
-    container.appendChild(questionEl);
-}
 
-document.getElementById('next-button').addEventListener('click', () => {
-    const interest = parseInt(document.getElementById('interest').value);
-    const group = questions[currentQuestion].group;
-    scores[group] += interest;
-    currentQuestion++;
-    showQuestion();
+    function showQuestion() {
+        if (currentQuestion >= 20 || currentQuestion >= tasks.length) {
+            showResults();
+            return;
+        }
+
+        const task = tasks[currentQuestion];
+        document.getElementById("question-box").innerHTML = `
+            <h3>Task ${currentQuestion + 1}:</h3>
+            <p>${task.task}</p>
+            <button onclick="recordAnswer('${task.group}')">I like this</button>
+            <button onclick="recordAnswer(null)">Skip</button>
+        `;
+    }
+
+    window.recordAnswer = function(group) {
+        if (group) {
+            scores[group] = (scores[group] || 0) + 1;
+        }
+        currentQuestion++;
+        showQuestion();
+    }
+
+    function showResults() {
+        let topGroup = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        let descriptions = {
+            "leadership": "Organized, decisive, and good at delegating. They thrive in planning, coordination, and team management.",
+            "photography": "Visual storytellers who enjoy capturing moments. They’re patient, creative, and technically skilled.",
+            "design": "Detail-oriented and artistic. They enjoy layout, aesthetics, and making things visually appealing.",
+            "sidebar": "Curious and trend-savvy. They like bite-sized content, infographics, and adding flair to stories.",
+            "journalist": "Strong writers and communicators. They enjoy interviews, storytelling, and crafting compelling narratives.",
+            "page finisher": "Perfectionists who love polishing work. They excel in proofreading, organizing, and finalizing content."
+        };
+        document.getElementById("result-box").innerHTML = `
+            <h3>Your Recommended Role: ${topGroup}</h3>
+            <p>${descriptions[topGroup.toLowerCase()] || "No description available."}</p>
+        `;
+    }
+
+    loadCSV(showQuestion);
 });
-
-function showResult() {
-    const container = document.getElementById('result-container');
-    document.getElementById('question-container').style.display = 'none';
-    document.getElementById('next-button').style.display = 'none';
-    container.style.display = 'block';
-
-    let bestRole = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    container.innerHTML = `
-        <h2>Your Recommended Role: ${bestRole.charAt(0).toUpperCase() + bestRole.slice(1)}</h2>
-        <p>${roles[bestRole]}</p>
-    `;
-}
